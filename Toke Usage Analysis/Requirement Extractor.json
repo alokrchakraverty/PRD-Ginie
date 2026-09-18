@@ -1,0 +1,782 @@
+[
+  {
+    "id": "resp_00ef25fe7d7e0c9f006aad1e7a498087d28831463ea957dbda",
+    "object": "response",
+    "created_at": 1789730426,
+    "status": "completed",
+    "background": false,
+    "billing": {
+      "payer": "developer"
+    },
+    "completed_at": 1789730430,
+    "frequency_penalty": 0,
+    "incomplete_details": null,
+    "instructions": null,
+    "max_output_tokens": null,
+    "max_tool_calls": null,
+    "model": "gpt-4o-mini-2024-07-18",
+    "moderation": null,
+    "output": [
+      {
+        "id": "msg_00ef25fe7d7e0c9f006aad1e7acb7487d28eaa55e58797c239",
+        "type": "message",
+        "status": "completed",
+        "content": [
+          {
+            "type": "output_text",
+            "annotations": [],
+            "logprobs": [],
+            "text": {
+              "extractions": [
+                {
+                  "source_id": "Product Brief: Advanced Analytics Dashboard",
+                  "source_type": "Product Brief",
+                  "stated_requirements": [
+                    "Dashboard should display 5 core metrics: revenue, active users, churn rate, NPS score, and support ticket volume",
+                    "Users should be able to filter by date range (last 7 days, 30 days, 90 days, custom)",
+                    "Data should refresh every 15 minutes (not real-time, to manage cost)",
+                    "Must support role-based access: executives see all data, team leads see their team only",
+                    "Export to PDF for monthly board reports"
+                  ],
+                  "ambiguous_items": [
+                    "Should we support custom dashboard layouts or ship a fixed layout first?",
+                    "Do we need alerting (e.g., notify when churn exceeds 5%)?",
+                    "What is the acceptable page load time?"
+                  ],
+                  "missing_info": [
+                    "What metrics should be included in the alerting system?",
+                    "What specific user roles will be defined for role-based access?"
+                  ],
+                  "constraints": [
+                    "Must integrate with our existing PostgreSQL data warehouse",
+                    "Cannot use any third-party analytics tools (licensing cost concern)",
+                    "Must be accessible on mobile (responsive design)",
+                    "Target launch: Q3 2026"
+                  ],
+                  "stakeholders": [
+                    "Priya Sharma, Product Manager",
+                    "Business analysts",
+                    "Team leads",
+                    "Executives"
+                  ],
+                  "deadlines": [
+                    "Target launch: Q3 2026"
+                  ],
+                  "contradictions_flagged": [],
+                  "extraction_notes": "The brief outlines clear requirements and constraints for the analytics dashboard, with some open questions that need to be addressed."
+                }
+              ]
+            }
+          }
+        ],
+        "role": "assistant"
+      }
+    ],
+    "parallel_tool_calls": true,
+    "presence_penalty": 0,
+    "previous_response_id": null,
+    "prompt_cache_key": null,
+    "prompt_cache_retention": "in_memory",
+    "reasoning": {
+      "context": null,
+      "effort": null,
+      "summary": null
+    },
+    "safety_identifier": null,
+    "service_tier": "default",
+    "store": true,
+    "temperature": 0.2,
+    "text": {
+      "format": {
+        "type": "json_schema",
+        "description": null,
+        "name": "my_schema",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "extractions": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "source_id": {
+                    "type": "string"
+                  },
+                  "source_type": {
+                    "type": "string"
+                  },
+                  "stated_requirements": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "ambiguous_items": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "missing_info": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "constraints": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "stakeholders": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "deadlines": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "contradictions_flagged": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "extraction_notes": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "source_id",
+                  "source_type",
+                  "stated_requirements",
+                  "ambiguous_items",
+                  "missing_info",
+                  "constraints",
+                  "stakeholders",
+                  "deadlines",
+                  "contradictions_flagged",
+                  "extraction_notes"
+                ],
+                "additionalProperties": false
+              }
+            }
+          },
+          "required": [
+            "extractions"
+          ],
+          "additionalProperties": false
+        },
+        "strict": true
+      },
+      "verbosity": "medium"
+    },
+    "tool_choice": "auto",
+    "tool_usage": {
+      "image_gen": {
+        "input_tokens": 0,
+        "input_tokens_details": {
+          "image_tokens": 0,
+          "text_tokens": 0
+        },
+        "output_tokens": 0,
+        "output_tokens_details": {
+          "image_tokens": 0,
+          "text_tokens": 0
+        },
+        "total_tokens": 0
+      },
+      "web_search": {
+        "num_requests": 0
+      }
+    },
+    "tools": [],
+    "top_logprobs": 0,
+    "top_p": 1,
+    "truncation": "disabled",
+    "usage": {
+      "input_tokens": 1070,
+      "input_tokens_details": {
+        "cache_write_tokens": 0,
+        "cached_tokens": 0
+      },
+      "output_tokens": 382,
+      "output_tokens_details": {
+        "reasoning_tokens": 0
+      },
+      "total_tokens": 1452
+    },
+    "user": null,
+    "metadata": {}
+  },
+  {
+    "id": "resp_0715d0273a223c4f006aad1e7e7a6887d2917284e92b3b9682",
+    "object": "response",
+    "created_at": 1789730430,
+    "status": "completed",
+    "background": false,
+    "billing": {
+      "payer": "developer"
+    },
+    "completed_at": 1789730439,
+    "frequency_penalty": 0,
+    "incomplete_details": null,
+    "instructions": null,
+    "max_output_tokens": null,
+    "max_tool_calls": null,
+    "model": "gpt-4o-mini-2024-07-18",
+    "moderation": null,
+    "output": [
+      {
+        "id": "msg_0715d0273a223c4f006aad1e7f473487d2be10e8d277964016",
+        "type": "message",
+        "status": "completed",
+        "content": [
+          {
+            "type": "output_text",
+            "annotations": [],
+            "logprobs": [],
+            "text": {
+              "extractions": [
+                {
+                  "source_id": "TRANSCRIPT 1: Reporting Feature (Detailed)",
+                  "source_type": "Meeting Transcript",
+                  "stated_requirements": [
+                    "Users should be able to filter reports by date range, category, and status.",
+                    "Results must load in under 2 seconds.",
+                    "A new dedicated page for the reporting feature should be created that matches the existing design system."
+                  ],
+                  "ambiguous_items": [],
+                  "missing_info": [
+                    "What data source will be used for querying?"
+                  ],
+                  "constraints": [
+                    "Results must load in under 2 seconds.",
+                    "Designs needed by end of April.",
+                    "Deadline for the feature is end of Q3."
+                  ],
+                  "stakeholders": [
+                    "Sarah (PM)",
+                    "Raj (Engineering Lead)",
+                    "Lisa (Design)"
+                  ],
+                  "deadlines": [
+                    "End of Q3",
+                    "End of April for designs"
+                  ],
+                  "contradictions_flagged": [],
+                  "extraction_notes": ""
+                },
+                {
+                  "source_id": "TRANSCRIPT 2: AI Feature (Vague)",
+                  "source_type": "Meeting Transcript",
+                  "stated_requirements": [],
+                  "ambiguous_items": [
+                    "What specific AI capabilities are needed for reporting?",
+                    "What data would the AI analyze?",
+                    "What outputs are expected from the AI?"
+                  ],
+                  "missing_info": [
+                    "Specific features or functionalities desired from AI in reporting."
+                  ],
+                  "constraints": [],
+                  "stakeholders": [
+                    "Tom (VP Product)",
+                    "Ananya (PM)"
+                  ],
+                  "deadlines": [],
+                  "contradictions_flagged": [],
+                  "extraction_notes": "The discussion lacks concrete requirements and is vague."
+                },
+                {
+                  "source_id": "TRANSCRIPT 3: Dashboard (Contradictory Requirements)",
+                  "source_type": "Meeting Transcript",
+                  "stated_requirements": [
+                    "The dashboard should auto-refresh every 5 seconds."
+                  ],
+                  "ambiguous_items": [],
+                  "missing_info": [],
+                  "constraints": [
+                    "Performance concerns regarding API calls due to frequent refresh."
+                  ],
+                  "stakeholders": [
+                    "Priya (PM)",
+                    "Mike (Engineering)",
+                    "Kevin (DevOps)"
+                  ],
+                  "deadlines": [],
+                  "contradictions_flagged": [
+                    "Priya wants a 5-second refresh, but Mike and Kevin express concerns about performance and API load."
+                  ],
+                  "extraction_notes": "There are conflicting views on the refresh rate and its implications."
+                },
+                {
+                  "source_id": "TRANSCRIPT 4: Export Feature (Detailed with Acceptance Criteria)",
+                  "source_type": "Meeting Transcript",
+                  "stated_requirements": [
+                    "Users need to export reports as PDF and CSV.",
+                    "PDF export must include the company logo at the top of every page.",
+                    "CSV export must preserve formulas, exporting the formula instead of just the value."
+                  ],
+                  "ambiguous_items": [],
+                  "missing_info": [],
+                  "constraints": [
+                    "The user-facing label for XLSX should say 'Export to CSV'."
+                  ],
+                  "stakeholders": [
+                    "Ananya (PM)",
+                    "Dev Team"
+                  ],
+                  "deadlines": [],
+                  "contradictions_flagged": [],
+                  "extraction_notes": "Acceptance criteria are clearly defined for the export feature."
+                },
+                {
+                  "source_id": "TRANSCRIPT 5: General Discussion (Incomplete Notes)",
+                  "source_type": "Meeting Transcript",
+                  "stated_requirements": [],
+                  "ambiguous_items": [
+                    "Details about the real-time updates discussed."
+                  ],
+                  "missing_info": [
+                    "Who to follow up with regarding design?",
+                    "Specifics about the analytics team discussion."
+                  ],
+                  "constraints": [
+                    "Budget for the project is TBD."
+                  ],
+                  "stakeholders": [],
+                  "deadlines": [],
+                  "contradictions_flagged": [],
+                  "extraction_notes": "The notes are incomplete and lack specific actionable items."
+                }
+              ]
+            }
+          }
+        ],
+        "role": "assistant"
+      }
+    ],
+    "parallel_tool_calls": true,
+    "presence_penalty": 0,
+    "previous_response_id": null,
+    "prompt_cache_key": null,
+    "prompt_cache_retention": "in_memory",
+    "reasoning": {
+      "context": null,
+      "effort": null,
+      "summary": null
+    },
+    "safety_identifier": null,
+    "service_tier": "default",
+    "store": true,
+    "temperature": 0.2,
+    "text": {
+      "format": {
+        "type": "json_schema",
+        "description": null,
+        "name": "my_schema",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "extractions": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "source_id": {
+                    "type": "string"
+                  },
+                  "source_type": {
+                    "type": "string"
+                  },
+                  "stated_requirements": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "ambiguous_items": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "missing_info": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "constraints": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "stakeholders": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "deadlines": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "contradictions_flagged": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "extraction_notes": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "source_id",
+                  "source_type",
+                  "stated_requirements",
+                  "ambiguous_items",
+                  "missing_info",
+                  "constraints",
+                  "stakeholders",
+                  "deadlines",
+                  "contradictions_flagged",
+                  "extraction_notes"
+                ],
+                "additionalProperties": false
+              }
+            }
+          },
+          "required": [
+            "extractions"
+          ],
+          "additionalProperties": false
+        },
+        "strict": true
+      },
+      "verbosity": "medium"
+    },
+    "tool_choice": "auto",
+    "tool_usage": {
+      "image_gen": {
+        "input_tokens": 0,
+        "input_tokens_details": {
+          "image_tokens": 0,
+          "text_tokens": 0
+        },
+        "output_tokens": 0,
+        "output_tokens_details": {
+          "image_tokens": 0,
+          "text_tokens": 0
+        },
+        "total_tokens": 0
+      },
+      "web_search": {
+        "num_requests": 0
+      }
+    },
+    "tools": [],
+    "top_logprobs": 0,
+    "top_p": 1,
+    "truncation": "disabled",
+    "usage": {
+      "input_tokens": 1658,
+      "input_tokens_details": {
+        "cache_write_tokens": 0,
+        "cached_tokens": 0
+      },
+      "output_tokens": 874,
+      "output_tokens_details": {
+        "reasoning_tokens": 0
+      },
+      "total_tokens": 2532
+    },
+    "user": null,
+    "metadata": {}
+  },
+  {
+    "id": "resp_0e6e13eeeaf21afc006aad1e88503c87d29b4b7fbea60b67ac",
+    "object": "response",
+    "created_at": 1789730440,
+    "status": "completed",
+    "background": false,
+    "billing": {
+      "payer": "developer"
+    },
+    "completed_at": 1789730446,
+    "frequency_penalty": 0,
+    "incomplete_details": null,
+    "instructions": null,
+    "max_output_tokens": null,
+    "max_tool_calls": null,
+    "model": "gpt-4o-mini-2024-07-18",
+    "moderation": null,
+    "output": [
+      {
+        "id": "msg_0e6e13eeeaf21afc006aad1e88a57c87d2bb365aafd54f72c8",
+        "type": "message",
+        "status": "completed",
+        "content": [
+          {
+            "type": "output_text",
+            "annotations": [],
+            "logprobs": [],
+            "text": {
+              "extractions": [
+                {
+                  "source_id": "Interview with Engineering Lead (Raj) - March 12",
+                  "source_type": "Interview",
+                  "stated_requirements": [
+                    "Optimize the query layer of the API.",
+                    "The analytics service should be its own service in a microservices architecture.",
+                    "Use the existing events table for the data model.",
+                    "Add an index on the timestamp column of the events table."
+                  ],
+                  "ambiguous_items": [
+                    "Need to discuss the impact of the dashboard on database performance."
+                  ],
+                  "missing_info": [
+                    "Specific metrics to measure the optimization of the API.",
+                    "Details on what new features are planned."
+                  ],
+                  "constraints": [
+                    "At least 2 sprints for backend work, possibly 3 if including API redesign."
+                  ],
+                  "stakeholders": [
+                    "Raj (Engineering Lead)"
+                  ],
+                  "deadlines": [],
+                  "contradictions_flagged": [],
+                  "extraction_notes": ""
+                },
+                {
+                  "source_id": "Interview with Design Lead (Lisa) - March 13",
+                  "source_type": "Interview",
+                  "stated_requirements": [
+                    "Explore a single-page app approach.",
+                    "Consider adding dark mode."
+                  ],
+                  "ambiguous_items": [
+                    "Need to discuss the preference for server-rendered pages for SEO."
+                  ],
+                  "missing_info": [
+                    "Specific insights users are looking for instead of charts.",
+                    "Details on how to balance mobile and desktop experiences."
+                  ],
+                  "constraints": [
+                    "Mobile experience should not compromise desktop experience."
+                  ],
+                  "stakeholders": [
+                    "Lisa (Design Lead)"
+                  ],
+                  "deadlines": [],
+                  "contradictions_flagged": [],
+                  "extraction_notes": ""
+                },
+                {
+                  "source_id": "Interview with VP Sales (Tom) - March 14",
+                  "source_type": "Interview",
+                  "stated_requirements": [
+                    "Deliver a basic version by the end of March for the board meeting.",
+                    "Make the product look professional.",
+                    "Include a churn prediction feature."
+                  ],
+                  "ambiguous_items": [
+                    "What data should be used for churn prediction?",
+                    "What accuracy is acceptable for churn prediction?"
+                  ],
+                  "missing_info": [],
+                  "constraints": [
+                    "Risk of losing top 3 enterprise accounts if not shipped by Q3."
+                  ],
+                  "stakeholders": [
+                    "Tom (VP Sales)"
+                  ],
+                  "deadlines": [
+                    "End of March for basic version.",
+                    "Q3 for full version."
+                  ],
+                  "contradictions_flagged": [],
+                  "extraction_notes": ""
+                },
+                {
+                  "source_id": "Interview with Customer Success (Nina) - March 15",
+                  "source_type": "Interview",
+                  "stated_requirements": [
+                    "Support multi-tenant data filtering for customers.",
+                    "Consider white-labeling options for reports."
+                  ],
+                  "ambiguous_items": [
+                    "Not sure if white-labeling is in scope."
+                  ],
+                  "missing_info": [
+                    "Specific features customers want for search and filtering."
+                  ],
+                  "constraints": [],
+                  "stakeholders": [
+                    "Nina (Customer Success)"
+                  ],
+                  "deadlines": [],
+                  "contradictions_flagged": [],
+                  "extraction_notes": ""
+                }
+              ]
+            }
+          }
+        ],
+        "role": "assistant"
+      }
+    ],
+    "parallel_tool_calls": true,
+    "presence_penalty": 0,
+    "previous_response_id": null,
+    "prompt_cache_key": null,
+    "prompt_cache_retention": "in_memory",
+    "reasoning": {
+      "context": null,
+      "effort": null,
+      "summary": null
+    },
+    "safety_identifier": null,
+    "service_tier": "default",
+    "store": true,
+    "temperature": 0.2,
+    "text": {
+      "format": {
+        "type": "json_schema",
+        "description": null,
+        "name": "my_schema",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "extractions": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "source_id": {
+                    "type": "string"
+                  },
+                  "source_type": {
+                    "type": "string"
+                  },
+                  "stated_requirements": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "ambiguous_items": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "missing_info": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "constraints": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "stakeholders": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "deadlines": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "contradictions_flagged": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "extraction_notes": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "source_id",
+                  "source_type",
+                  "stated_requirements",
+                  "ambiguous_items",
+                  "missing_info",
+                  "constraints",
+                  "stakeholders",
+                  "deadlines",
+                  "contradictions_flagged",
+                  "extraction_notes"
+                ],
+                "additionalProperties": false
+              }
+            }
+          },
+          "required": [
+            "extractions"
+          ],
+          "additionalProperties": false
+        },
+        "strict": true
+      },
+      "verbosity": "medium"
+    },
+    "tool_choice": "auto",
+    "tool_usage": {
+      "image_gen": {
+        "input_tokens": 0,
+        "input_tokens_details": {
+          "image_tokens": 0,
+          "text_tokens": 0
+        },
+        "output_tokens": 0,
+        "output_tokens_details": {
+          "image_tokens": 0,
+          "text_tokens": 0
+        },
+        "total_tokens": 0
+      },
+      "web_search": {
+        "num_requests": 0
+      }
+    },
+    "tools": [],
+    "top_logprobs": 0,
+    "top_p": 1,
+    "truncation": "disabled",
+    "usage": {
+      "input_tokens": 1228,
+      "input_tokens_details": {
+        "cache_write_tokens": 0,
+        "cached_tokens": 0
+      },
+      "output_tokens": 719,
+      "output_tokens_details": {
+        "reasoning_tokens": 0
+      },
+      "total_tokens": 1947
+    },
+    "user": null,
+    "metadata": {}
+  }
+]

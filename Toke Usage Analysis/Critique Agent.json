@@ -1,0 +1,291 @@
+[
+  {
+    "id": "resp_0727cce933cf0f5c006aad20b24a2887d29ca15cd576d9f8d2",
+    "object": "response",
+    "created_at": 1789730994,
+    "status": "completed",
+    "background": false,
+    "billing": {
+      "payer": "developer"
+    },
+    "completed_at": 1789731002,
+    "frequency_penalty": 0,
+    "incomplete_details": null,
+    "instructions": null,
+    "max_output_tokens": null,
+    "max_tool_calls": null,
+    "model": "gpt-4o-mini-2024-07-18",
+    "moderation": null,
+    "output": [
+      {
+        "id": "msg_0727cce933cf0f5c006aad20b30b4087d297a60d58195944b7",
+        "type": "message",
+        "status": "completed",
+        "content": [
+          {
+            "type": "output_text",
+            "annotations": [],
+            "logprobs": [],
+            "text": {
+              "grounding_issues": [],
+              "completeness_gaps": [
+                {
+                  "section": "functional_requirements",
+                  "description": "The requirement for the dashboard to refresh every 5 seconds is omitted.",
+                  "missing_source_id": "TRANSCRIPT 3: Dashboard (Contradictory Requirements)"
+                },
+                {
+                  "section": "functional_requirements",
+                  "description": "The requirement for alerting when churn exceeds 5% is omitted.",
+                  "missing_source_id": "Product Brief: Advanced Analytics Dashboard"
+                },
+                {
+                  "section": "functional_requirements",
+                  "description": "The requirement for specific user roles defined for role-based access is omitted.",
+                  "missing_source_id": "Product Brief: Advanced Analytics Dashboard"
+                },
+                {
+                  "section": "open_questions",
+                  "description": "The open clarification question regarding the acceptable page load time is omitted.",
+                  "missing_source_id": "GAP ANALYSIS REPORT"
+                },
+                {
+                  "section": "open_questions",
+                  "description": "The open clarification question regarding the data source for querying is omitted.",
+                  "missing_source_id": "GAP ANALYSIS REPORT"
+                },
+                {
+                  "section": "open_questions",
+                  "description": "The open clarification question regarding specific AI capabilities needed for reporting is omitted.",
+                  "missing_source_id": "GAP ANALYSIS REPORT"
+                },
+                {
+                  "section": "open_questions",
+                  "description": "The open clarification question regarding what data the AI would analyze is omitted.",
+                  "missing_source_id": "GAP ANALYSIS REPORT"
+                },
+                {
+                  "section": "open_questions",
+                  "description": "The open clarification question regarding expected outputs from the AI is omitted.",
+                  "missing_source_id": "GAP ANALYSIS REPORT"
+                },
+                {
+                  "section": "open_questions",
+                  "description": "The open clarification question regarding specific metrics to measure API optimization is omitted.",
+                  "missing_source_id": "GAP ANALYSIS REPORT"
+                },
+                {
+                  "section": "open_questions",
+                  "description": "The open clarification question regarding data for churn prediction is omitted.",
+                  "missing_source_id": "GAP ANALYSIS REPORT"
+                },
+                {
+                  "section": "open_questions",
+                  "description": "The open clarification question regarding acceptable accuracy for churn prediction is omitted.",
+                  "missing_source_id": "GAP ANALYSIS REPORT"
+                },
+                {
+                  "section": "open_questions",
+                  "description": "The open clarification question regarding who to follow up with regarding design is omitted.",
+                  "missing_source_id": "GAP ANALYSIS REPORT"
+                },
+                {
+                  "section": "open_questions",
+                  "description": "The open clarification question regarding specifics about the analytics team discussion is omitted.",
+                  "missing_source_id": "GAP ANALYSIS REPORT"
+                }
+              ],
+              "consistency_issues": [
+                {
+                  "section": "functional_requirements",
+                  "description": "The dashboard refresh rate is stated as every 15 minutes in the functional requirements but is contradicted by a requirement for a 5-second refresh in another source.",
+                  "evidence": "The dashboard should auto-refresh every 5 seconds."
+                }
+              ],
+              "mislabeling_issues": [],
+              "overall_verdict": "needs_revision",
+              "summary": "The generated PRD has several completeness gaps and consistency issues that need to be addressed before it can be considered complete."
+            }
+          }
+        ],
+        "role": "assistant"
+      }
+    ],
+    "parallel_tool_calls": true,
+    "presence_penalty": 0,
+    "previous_response_id": null,
+    "prompt_cache_key": null,
+    "prompt_cache_retention": "in_memory",
+    "reasoning": {
+      "context": null,
+      "effort": null,
+      "summary": null
+    },
+    "safety_identifier": null,
+    "service_tier": "default",
+    "store": true,
+    "temperature": 0,
+    "text": {
+      "format": {
+        "type": "json_schema",
+        "description": null,
+        "name": "my_schema",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "grounding_issues": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "section": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "evidence": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "section",
+                  "description",
+                  "evidence"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "completeness_gaps": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "section": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "missing_source_id": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "section",
+                  "description",
+                  "missing_source_id"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "consistency_issues": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "section": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "evidence": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "section",
+                  "description",
+                  "evidence"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "mislabeling_issues": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "section": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "evidence": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "section",
+                  "description",
+                  "evidence"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "overall_verdict": {
+              "type": "string",
+              "enum": [
+                "pass",
+                "needs_revision"
+              ]
+            },
+            "summary": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "grounding_issues",
+            "completeness_gaps",
+            "consistency_issues",
+            "mislabeling_issues",
+            "overall_verdict",
+            "summary"
+          ],
+          "additionalProperties": false
+        },
+        "strict": true
+      },
+      "verbosity": "medium"
+    },
+    "tool_choice": "auto",
+    "tool_usage": {
+      "image_gen": {
+        "input_tokens": 0,
+        "input_tokens_details": {
+          "image_tokens": 0,
+          "text_tokens": 0
+        },
+        "output_tokens": 0,
+        "output_tokens_details": {
+          "image_tokens": 0,
+          "text_tokens": 0
+        },
+        "total_tokens": 0
+      },
+      "web_search": {
+        "num_requests": 0
+      }
+    },
+    "tools": [],
+    "top_logprobs": 0,
+    "top_p": 1,
+    "truncation": "disabled",
+    "usage": {
+      "input_tokens": 5015,
+      "input_tokens_details": {
+        "cache_write_tokens": 0,
+        "cached_tokens": 0
+      },
+      "output_tokens": 724,
+      "output_tokens_details": {
+        "reasoning_tokens": 0
+      },
+      "total_tokens": 5739
+    },
+    "user": null,
+    "metadata": {}
+  }
+]

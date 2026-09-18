@@ -1,0 +1,211 @@
+[
+  {
+    "id": "resp_0275ece2e973d03f006aad1e906ca487d2924a5b42a3c58916",
+    "object": "response",
+    "created_at": 1789730448,
+    "status": "completed",
+    "background": false,
+    "billing": {
+      "payer": "developer"
+    },
+    "completed_at": 1789730451,
+    "frequency_penalty": 0,
+    "incomplete_details": null,
+    "instructions": null,
+    "max_output_tokens": null,
+    "max_tool_calls": null,
+    "model": "gpt-4o-mini-2024-07-18",
+    "moderation": null,
+    "output": [
+      {
+        "id": "msg_0275ece2e973d03f006aad1e90da7487d2a77a0a6ac0235a45",
+        "type": "message",
+        "status": "completed",
+        "content": [
+          {
+            "type": "output_text",
+            "annotations": [],
+            "logprobs": [],
+            "text": {
+              "cross_source_conflicts": [
+                {
+                  "description": "Possible conflict regarding dashboard refresh rate — one source states it should refresh every 15 minutes, while another states it should refresh every 5 seconds. Verify these refer to the same dashboard feature.",
+                  "source_ids_involved": [
+                    "Product Brief: Advanced Analytics Dashboard",
+                    "TRANSCRIPT 3: Dashboard (Contradictory Requirements)"
+                  ]
+                }
+              ],
+              "stakeholder_tensions": [
+                {
+                  "description": "Engineering wants to optimize the API and implement a microservices architecture, while Design is exploring a single-page app approach and considering dark mode.",
+                  "viewpoints": [
+                    "Raj (Engineering Lead) wants to optimize the query layer and use microservices.",
+                    "Lisa (Design Lead) wants to explore a single-page app and dark mode."
+                  ],
+                  "source_ids_involved": [
+                    "Interview with Engineering Lead (Raj) - March 12",
+                    "Interview with Design Lead (Lisa) - March 13"
+                  ]
+                }
+              ],
+              "open_clarification_questions": [
+                "Should we support custom dashboard layouts or ship a fixed layout first?",
+                "Do we need alerting (e.g., notify when churn exceeds 5%)?",
+                "What is the acceptable page load time?",
+                "What data source will be used for querying?",
+                "What specific AI capabilities are needed for reporting?",
+                "What data would the AI analyze?",
+                "What outputs are expected from the AI?",
+                "What specific metrics to measure the optimization of the API?",
+                "What data should be used for churn prediction?",
+                "What accuracy is acceptable for churn prediction?",
+                "Who to follow up with regarding design?",
+                "Specifics about the analytics team discussion?"
+              ],
+              "readiness_assessment": "This requires stakeholder clarification before proceeding to PRD generation.",
+              "readiness_notes": "Conflicting requirements and multiple open questions indicate the need for further discussions."
+            }
+          }
+        ],
+        "role": "assistant"
+      }
+    ],
+    "parallel_tool_calls": true,
+    "presence_penalty": 0,
+    "previous_response_id": null,
+    "prompt_cache_key": null,
+    "prompt_cache_retention": "in_memory",
+    "reasoning": {
+      "context": null,
+      "effort": null,
+      "summary": null
+    },
+    "safety_identifier": null,
+    "service_tier": "default",
+    "store": true,
+    "temperature": 0.2,
+    "text": {
+      "format": {
+        "type": "json_schema",
+        "description": null,
+        "name": "my_schema",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "cross_source_conflicts": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "description": {
+                    "type": "string"
+                  },
+                  "source_ids_involved": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "required": [
+                  "description",
+                  "source_ids_involved"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "stakeholder_tensions": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "description": {
+                    "type": "string"
+                  },
+                  "viewpoints": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "source_ids_involved": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "required": [
+                  "description",
+                  "viewpoints",
+                  "source_ids_involved"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "open_clarification_questions": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "readiness_assessment": {
+              "type": "string"
+            },
+            "readiness_notes": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "cross_source_conflicts",
+            "stakeholder_tensions",
+            "open_clarification_questions",
+            "readiness_assessment",
+            "readiness_notes"
+          ],
+          "additionalProperties": false
+        },
+        "strict": true
+      },
+      "verbosity": "medium"
+    },
+    "tool_choice": "auto",
+    "tool_usage": {
+      "image_gen": {
+        "input_tokens": 0,
+        "input_tokens_details": {
+          "image_tokens": 0,
+          "text_tokens": 0
+        },
+        "output_tokens": 0,
+        "output_tokens_details": {
+          "image_tokens": 0,
+          "text_tokens": 0
+        },
+        "total_tokens": 0
+      },
+      "web_search": {
+        "num_requests": 0
+      }
+    },
+    "tools": [],
+    "top_logprobs": 0,
+    "top_p": 1,
+    "truncation": "disabled",
+    "usage": {
+      "input_tokens": 2286,
+      "input_tokens_details": {
+        "cache_write_tokens": 0,
+        "cached_tokens": 0
+      },
+      "output_tokens": 346,
+      "output_tokens_details": {
+        "reasoning_tokens": 0
+      },
+      "total_tokens": 2632
+    },
+    "user": null,
+    "metadata": {}
+  }
+]
