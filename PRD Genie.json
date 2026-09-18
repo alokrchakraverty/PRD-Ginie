@@ -1,0 +1,1476 @@
+{
+  "name": "PRD Genie",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "## Using Google Drive \nSearch and Download from Drive to address the pain point of \"documents sit unused\"  ",
+        "width": 320,
+        "color": 3
+      },
+      "id": "e13fd8c6-431b-4b69-8431-8107b9f91189",
+      "name": "Sticky Note",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -384,
+        816
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## Requirement Extraction two parts: \n1. Extract Raw content from files in the drive\n2. Extractor Agent to parse the requirements and use LLM to give structured Output  \n3.  Finally aggregate the inputs from extractor agent as it generates 1 per input file ",
+        "width": 464,
+        "color": 3
+      },
+      "id": "2aa521d3-3757-4e29-859b-f59af61215b2",
+      "name": "Sticky Note1",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## Observability and Tracing using Langfuse \n\n1. First Set all the outputs as they are made available from various agents \n2. Set the OLTP Payload as per Langfuse OTEL endpoint.\n3. Send HTTP Request to connect with Langfuse",
+        "width": 560,
+        "color": 3
+      },
+      "id": "b3f74fff-dcb4-4a3f-9277-fd2071cf0e21",
+      "name": "Sticky Note2",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        1296,
+        1056
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## Gap Analyzer\n\n1.  Gap Analyzer Agent uses LLM to find cross source - \na. conflicts \nb. Stake Holder Tensions \nc. Open Questions \n\n2. Set Gap Analysis to a clean field for downstream usage",
+        "height": 208,
+        "width": 560,
+        "color": 3
+      },
+      "id": "cbc3bab9-bff7-450c-9f64-77ef040130a8",
+      "name": "Sticky Note3",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        608,
+        1008
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## PRD Generator\n1. Set the PRD template as per fixed template provided in the project resource \n\n2. Merge the Inputs from PRD Template, Requirement Extractor and Gap Analyzer\n\n3. PRD Generator Agent uses LLM to bring it all together and generate the PRD accordingly",
+        "width": 640,
+        "color": 3
+      },
+      "id": "b7dab064-8fee-4ad0-a3c5-9a7a4408567a",
+      "name": "Sticky Note4",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        960,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## Reflection \n1. Critique Agent to Analyze and Critique the generated OutPut for accuracy, completeness and groundedness\n2. Resolver to address the findings and generate final PRD ",
+        "width": 1088,
+        "color": 3
+      },
+      "id": "231208d7-8cbd-4ae5-956b-073a4f93c943",
+      "name": "Sticky Note5",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        1808,
+        48
+      ]
+    },
+    {
+      "parameters": {
+        "content": "##  Story Break Down\n\n1. Story Break Down Agent Takes the input from finalized PRD and breaks into Epics → Features → User Stories. \n2. Story Evaluator, validates the completeness by checking all FR and NFR from PRD are captured in the Story Breakdown Agents' Output\n3. IF branch - If the Evaluator confirms no change skip another LLM Pass for Story Finalizer, Else pass through Finalizer.\n4. User Story Finalizer - takes input from the Evaluator to address the missing items and Finalize the last step for User story Creation.",
+        "width": 1184,
+        "color": 3
+      },
+      "id": "b007092a-4f28-47eb-81f3-047aac198093",
+      "name": "Sticky Note6",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        2096,
+        656
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "faf794a6-479b-44bf-aa96-9baa1d663935",
+      "name": "When clicking ‘Execute workflow’",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -768,
+        656
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "fileFolder",
+        "queryString": "={{ $('Batch Selector').item.json.filename }}",
+        "filter": {
+          "folderId": {
+            "__rl": true,
+            "value": "1wO1U4Tq0FkVWHjCTytFAvy64pJ0Y5UOT",
+            "mode": "list",
+            "cachedResultName": "Regression",
+            "cachedResultUrl": "https://drive.google.com/drive/folders/1wO1U4Tq0FkVWHjCTytFAvy64pJ0Y5UOT"
+          }
+        },
+        "options": {
+          "fields": [
+            "*"
+          ]
+        }
+      },
+      "id": "d4b03483-c311-494b-ac01-edefe645282a",
+      "name": "Search files and folders",
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        -464,
+        656
+      ],
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "CJIL86jvJciFAHNy",
+          "name": "Google Drive account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "download",
+        "fileId": {
+          "__rl": true,
+          "value": "={{ $json.id }}",
+          "mode": "id"
+        },
+        "options": {}
+      },
+      "id": "6c9969e0-2927-402a-a415-33bd606c1475",
+      "name": "Download file",
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        -320,
+        656
+      ],
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "CJIL86jvJciFAHNy",
+          "name": "Google Drive account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "text",
+        "destinationKey": "TranscriptText",
+        "options": {}
+      },
+      "id": "a609829c-9640-44fe-b241-ef1733882d48",
+      "name": "Extract from File",
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1.1,
+      "position": [
+        -144,
+        192
+      ]
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "gpt-4o-mini",
+          "mode": "list",
+          "cachedResultName": "GPT-4O-MINI",
+          "cachedResultUrl": ""
+        },
+        "responses": {
+          "values": [
+            {
+              "role": "system",
+              "content": "You are a Requirement Extraction agent for a product documentation system.\n\nGiven a raw meeting transcript, product brief, or stakeholder notes, extract:\n- Feature requests and requirements\n- Constraints (performance, technical, timeline)\n- Stakeholders mentioned (names/roles)\n- Deadlines mentioned\n\nThe input file you receive may contain ONE or MULTIPLE distinct sources of\ninformation. Formats vary by author.\n\nSTEP 1 — Identify each distinct source unit in the input, using whatever\ndelimiter or header convention the file itself uses. Do not assume a fixed\nformat across files.\n\nSTEP 2 — For each source, extract independently:\n- stated_requirements, ambiguous_items, missing_info, constraints,\n  stakeholders, deadlines, contradictions_flagged, extraction_notes\n- Treat each source as self-contained. Do NOT let details, tone, or\n  contradictions from one source influence the extraction of another,\n  even if they appear in the same file back-to-back. \n\nSTEP 3 — For each source, generate a human-readable `source_id` traceable\nback to the input, e.g.:\n- \"Transcript 1:\n- \"Interview with Engineering Lead — March 12\"\n- \"Product Brief: Advanced Analytics Dashboard \"\n- If nothing distinguishes a source, use \"Unnamed Source\" plus a short\ncontent summary instead of inventing a label.\n\nSTRICT RULES:\n1. Only extract what is explicitly and specifically stated. A requirement must\n   describe a concrete capability, not a vague aspiration.\n2. Casual comparisons to competitors, phrases like \"something like X\", \"make it\n   smarter\", \"figure it out\", or \"everyone has this\" are NOT requirements. Do\n   NOT convert vague intent into a specific technical requirement.\n3. If intent is vague or underspecified, place it in \"ambiguous_items\" with a\n   short description, and list the specific missing information needed to make\n   it actionable (e.g. what metrics, what data source, what user segment, what\n   output format).\n4. If the input is vague, incomplete, or contains no extractable requirements,\n   say so explicitly rather than inventing content to fill gaps.\n5. If the input contains contradictory statements, flag the contradiction\n   explicitly rather than silently picking one side.\n6. Preserve exact numbers, names, and technical terms verbatim.\n\nYou must ALWAYS return valid JSON in exactly this schema, even if some arrays\nare empty:\n{\n  \"stated_requirements\": [],\n  \"ambiguous_items\": [],\n  \"missing_info\": [],\n  \"constraints\": [],\n  \"stakeholders\": [],\n  \"deadlines\": [],\n  \"contradictions_flagged\": [],\n  \"extraction_notes\":  \"\"\n}"
+            },
+            {
+              "content": "={{ $json.TranscriptText }}"
+            }
+          ]
+        },
+        "builtInTools": {},
+        "options": {
+          "textFormat": {
+            "textOptions": {
+              "type": "json_schema",
+              "schema": "{\n  \"type\": \"object\",\n  \"properties\": {\n    \"extractions\": {\n      \"type\": \"array\",\n      \"items\": {\n        \"type\": \"object\",\n        \"properties\": {\n          \"source_id\": { \"type\": \"string\" },\n          \"source_type\": { \"type\": \"string\" },\n          \"stated_requirements\": { \"type\": \"array\", \"items\": { \"type\": \"string\" } },\n          \"ambiguous_items\": { \"type\": \"array\", \"items\": { \"type\": \"string\" } },\n          \"missing_info\": { \"type\": \"array\", \"items\": { \"type\": \"string\" } },\n          \"constraints\": { \"type\": \"array\", \"items\": { \"type\": \"string\" } },\n          \"stakeholders\": { \"type\": \"array\", \"items\": { \"type\": \"string\" } },\n          \"deadlines\": { \"type\": \"array\", \"items\": { \"type\": \"string\" } },\n          \"contradictions_flagged\": { \"type\": \"array\", \"items\": { \"type\": \"string\" } },\n          \"extraction_notes\": { \"type\": \"string\" }\n        },\n        \"required\": [\n          \"source_id\", \"source_type\", \"stated_requirements\", \"ambiguous_items\",\n          \"missing_info\", \"constraints\", \"stakeholders\", \"deadlines\",\n          \"contradictions_flagged\", \"extraction_notes\"\n        ],\n        \"additionalProperties\": false\n      }\n    }\n  },\n  \"required\": [\"extractions\"],\n  \"additionalProperties\": false\n}"
+            }
+          },
+          "temperature": 0.2
+        }
+      },
+      "id": "0a0fb484-5ffc-4405-9b29-ca5b829546fc",
+      "name": "Requirement Extractor Agent",
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 2.3,
+      "position": [
+        0,
+        192
+      ],
+      "credentials": {
+        "openAiApi": {
+          "id": "IeccoVk2KCcorijD",
+          "name": "OpenAI account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Get all incoming items from the three extraction sources\nconst items = $input.all();\n\nconst aggregatedExtractions = [];\n\n// Extract and combine the \"extractions\" array from every incoming item\nfor (const item of items) {\n  const extractions =\n    item.json?.output?.[0]?.content?.[0]?.text?.extractions;\n\n  if (Array.isArray(extractions)) {\n    aggregatedExtractions.push(...extractions);\n  }\n}\n\n// Return one item containing the single consolidated extractions array\nreturn [\n  {\n    json: {\n      extractions: aggregatedExtractions\n    }\n  }\n];"
+      },
+      "id": "ac60eea6-2b48-4f20-a57a-182b0130d6de",
+      "name": "Requirement Aggregator",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        272,
+        192
+      ]
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "gpt-4o-mini",
+          "mode": "list",
+          "cachedResultName": "GPT-4O-MINI"
+        },
+        "responses": {
+          "values": [
+            {
+              "role": "system",
+              "content": "You are a Gap Analyzer agent for a product documentation system. You receive\nrequirement extractions from multiple sources (meeting transcripts, product\nbriefs, stakeholder notes) that were extracted independently of each other.\n\nYour job is to analyze this consolidated set and identify three distinct\nthings:\n\n1. CROSS-SOURCE CONFLICTS: Requirements or constraints from different sources\n   that directly contradict each other (e.g., one source says \"refresh every\n   5 seconds,\" another says \"minimize API calls\" or \"refresh every 15\n   minutes\"). Only flag genuine contradictions, not simply different topics.\n\n2. STAKEHOLDER TENSIONS: Cases where multiple stakeholders want different,\n   not-necessarily-contradictory things (e.g., Engineering wants microservices,\n   Design wants a single-page app). Capture ALL viewpoints neutrally. Do NOT\n   favor one stakeholder's position over another's, and do NOT resolve the\n   tension yourself — surface it for human resolution.\n\n3. OPEN CLARIFICATION QUESTIONS: Consolidate and deduplicate the\n   ambiguous_items and missing_info already flagged per-source into a single,\n   clean list of specific questions a PM should take back to stakeholders.\n   Remove duplicates. Do not soften or generalize specific questions into\n   vague ones.\n\nSTRICT RULES:\n1. Do NOT invent a conflict that doesn't exist in the source data.\n2. Do NOT resolve conflicts or tensions yourself — your job is to surface\n   them, not decide the answer.\n3. Every conflict or tension must cite which source_ids it came from.\n4. If no conflicts exist, return an empty array rather than forcing one.\n5. Do NOT invent / Assume a stakeholder tension  if one side is silent, for the  stakeholder tension to be real, it  requires \n    That BOTH sides have explicitly stated a position on the same topic.\n6. Assess overall readiness: can this proceed to PRD generation as-is, or\n   does it need stakeholder clarification first?\n7. Before citing a source_id in cross_source_conflicts or stakeholder_tensions,\n   verify that source explicitly discusses the same topic. Do not cite a\n   source merely because it involves a different stakeholder.\n8. A stakeholder tension requires that BOTH sides have explicitly stated a\n   position on the same topic. If one party simply did not mention a topic,\n   that is a gap (belongs in open_clarification_questions), NOT a tension.\n   Never phrase a tension using language like \"has not specified\" or \"has\n   not endorsed\" as evidence of disagreement — absence of a statement is not\n   a stated position.\n9.  For cross-source conflicts require the conflicting statements to come from genuinely\n   different sources. if the contradiction exists entirely within one source (already present in\n   that source's contradictions_flagged), do NOT re-report it.\n10. Genuine cross-source conflicts (e.g., differing numeric requirements for\n   the same feature, like refresh frequency) should still be reported even\n   if the sources don't explicitly name the same project — note the\n   uncertainty explicitly rather than omitting the conflict or asserting it\n   as certain (e.g., \"Possible conflict — verify these refer to the same\n   dashboard feature\")."
+            },
+            {
+              "content": "={{ JSON.stringify($json.extractions) }}"
+            }
+          ]
+        },
+        "builtInTools": {},
+        "options": {
+          "textFormat": {
+            "textOptions": {
+              "type": "json_schema",
+              "schema": "{\n  \"type\": \"object\",\n  \"properties\": {\n    \"cross_source_conflicts\": {\n      \"type\": \"array\",\n      \"items\": {\n        \"type\": \"object\",\n        \"properties\": {\n          \"description\": { \"type\": \"string\" },\n          \"source_ids_involved\": { \"type\": \"array\", \"items\": { \"type\": \"string\" } }\n        },\n        \"required\": [\"description\", \"source_ids_involved\"],\n        \"additionalProperties\": false\n      }\n    },\n    \"stakeholder_tensions\": {\n      \"type\": \"array\",\n      \"items\": {\n        \"type\": \"object\",\n        \"properties\": {\n          \"description\": { \"type\": \"string\" },\n          \"viewpoints\": { \"type\": \"array\", \"items\": { \"type\": \"string\" } },\n          \"source_ids_involved\": { \"type\": \"array\", \"items\": { \"type\": \"string\" } }\n        },\n        \"required\": [\"description\", \"viewpoints\", \"source_ids_involved\"],\n        \"additionalProperties\": false\n      }\n    },\n    \"open_clarification_questions\": { \"type\": \"array\", \"items\": { \"type\": \"string\" } },\n    \"readiness_assessment\": { \"type\": \"string\" },\n    \"readiness_notes\": { \"type\": \"string\" }\n  },\n  \"required\": [\"cross_source_conflicts\", \"stakeholder_tensions\", \"open_clarification_questions\", \"readiness_assessment\", \"readiness_notes\"],\n  \"additionalProperties\": false\n}"
+            }
+          },
+          "temperature": 0.2
+        }
+      },
+      "id": "7600c7d1-6aa1-4f67-bc82-4840f40db5b5",
+      "name": "Gap Analyzer",
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 2.3,
+      "position": [
+        608,
+        832
+      ],
+      "credentials": {
+        "openAiApi": {
+          "id": "IeccoVk2KCcorijD",
+          "name": "OpenAI account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "33f010a8-7f35-4fc6-9b46-b8a98c0aeeb5",
+              "name": "GapAnalysis",
+              "value": "={{ $json.output[0].content[0].text }}",
+              "type": "object"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "79c8bc95-f552-4a9f-9718-8e4097663b6b",
+      "name": "Set Gap Analysis",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        896,
+        832
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "51ea74f2-d3de-4c80-b3ef-ae68f14bea25",
+              "name": "templateText",
+              "value": "# Product Requirements Document (PRD) Template\n\n## 1. Product Overview\n- **Product Name:**\n- **Document Version:**\n- **Author:**\n- **Date:**\n- **Status:** [Draft / In Review / Approved]\n\n## 2. Goals and Objectives\n- **Business Goal:** What business outcome does this feature drive?\n- **User Goal:** What problem does this solve for the user?\n- **Success Metrics:** How will we measure success? (list 2-3 KPIs)\n\n## 3. User Personas\nFor each persona, describe:\n- **Name / Role:**\n- **Key Need:**\n- **Current Workaround:**\n\n## 4. Feature Requirements\n\n### 4.1 Functional Requirements\n| ID | Requirement | Priority (Must/Should/Nice) | Source |\n|----|-------------|---------------------------|--------|\n| FR-001 | | | |\n| FR-002 | | | |\n\n### 4.2 Non-Functional Requirements\n| ID | Requirement | Category | Target |\n|----|-------------|----------|--------|\n| NFR-001 | | Performance | |\n| NFR-002 | | Security | |\n\n## 5. Acceptance Criteria\nFor each key feature, list specific testable criteria:\n- **Feature X:**\n  - [ ] Criteria 1\n  - [ ] Criteria 2\n\n## 6. Out of Scope\nList what is explicitly NOT included in this release.\n\n## 7. Dependencies\n| Dependency | Owner | Status | Risk |\n|-----------|-------|--------|------|\n| | | | |\n\n## 8. Assumptions\nList assumptions made during requirement gathering.\n\n## 9. Open Questions\nList unresolved items that need stakeholder input.\n\n## 10. Timeline\n| Milestone | Target Date |\n|-----------|-------------|\n| Design Complete | |\n| Development Start | |\n| QA / Testing | |\n| Launch | |\n",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "839dca4f-7888-4dfd-9599-754c937a7c2a",
+      "name": "Prd Template",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        688,
+        160
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combineBy": "combineByPosition",
+        "numberInputs": 3,
+        "options": {
+          "includeUnpaired": false
+        }
+      },
+      "id": "9c28076e-d627-4b3e-aeef-c3e110a682e5",
+      "name": "Merge Inputs for PRD Generation",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        992,
+        176
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combineBy": "combineByPosition",
+        "numberInputs": 3,
+        "options": {}
+      },
+      "id": "c5e34c92-1ea8-4c85-898c-ed630d4d18a0",
+      "name": "Merge Inputs for Critique",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        1760,
+        288
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "609f0576-182f-4708-9774-900cf8f428e7",
+              "name": "generatedPRD",
+              "value": "={{ $json.output[0].content[0].text }}",
+              "type": "object"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "c6b9f12d-ca72-4c54-8b2f-67e6a3205784",
+      "name": "Set generatedPRD",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        1536,
+        192
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "7a7278dd-499c-43af-a857-df5e93a74347",
+              "name": "critiqueReport",
+              "value": "={{ $json.output[0].content[0].text }}",
+              "type": "object"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "e4f6a02e-62de-461f-922e-706fbe3e22f9",
+      "name": "Set Critique Report",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        2224,
+        304
+      ]
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "gpt-4o-mini",
+          "mode": "list",
+          "cachedResultName": "GPT-4O-MINI"
+        },
+        "responses": {
+          "values": [
+            {
+              "role": "system",
+              "content": "=You are a PRD Generator agent for a product documentation system.\nYour job is to transform raw requirement extractions and gap analysis metrics into a structured, highly grounded PRD layout following strict mapping rules.\n\n# CORE OPERATIONAL MANDATES\n1. STRICT GROUNDING: Only include information explicitly present in the provided datasets. Never extrapolate, infer, or fabricate data to make the PRD feel \"complete.\" Source completeness takes priority over perceived PRD completeness.\n2. PLACEHOLDER DEFAULT: If a template field cannot be filled using the source material, populate it exactly with the string: \"Not specified in source material\". Do not invent dates, authors, versions, or success metrics.\n3. EQUAL SOURCE PRIORITY: Process all source items with equal weight. Do not deprioritize requirements based on source_type (e.g., Stakeholder Notes carry equal weight to Meeting Transcripts or Product Briefs).\n4. NO QUALITY FIXES: Accurately reflect the completeness of the source material. Do not try to make vague requirements look professional or well-defined.\n\n---\n\n# DATA MAPPING & TRANSFORMATION BOUNDARIES\n\n## 1. FUNCTIONAL (FR) & NON-FUNCTIONAL REQUIREMENTS (NFR)\n\n- STATED REQUIREMENTS ONLY: Populate FR and NFR sections ONLY from 'stated_requirements' arrays in the extractions.\n\n- CONFLICT PRECEDENCE — CRITICAL: A 'stated_requirement' is NOT eligible for the FR or NFR sections if that requirement, or a substantially equivalent requirement, is identified in 'cross_source_conflicts' or 'stakeholder_tensions'.\n- CONFLICT QUARANTINE: Before adding any 'stated_requirement' to FR or NFR, check whether it participates in a cross-source conflict or stakeholder tension. If it does, quarantine the requirement from FR/NFR generation. Do not treat the requirement as confirmed merely because it appears in a 'stated_requirements' array.\n- CONFLICTED VERSIONS MUST NOT BECOME CONFIRMED REQUIREMENTS: When two or more source statements conflict, neither conflicting version may be represented as an uncontested or confirmed FR/NFR. Do not select one version, prefer one source, or treat one version as the baseline requirement.\n- CONFLICT PRESERVATION: Preserve the conflicting positions as unresolved information in 'open_questions' or 'dependencies', including the relevant source context and the fact that stakeholder clarification is required.\n- STRICT EXCLUSION: Never convert items from 'ambiguous_items', 'missing_info', 'open_clarification_questions', 'cross_source_conflicts', or 'stakeholder_tensions' into confirmed FRs or NFRs.\n- SOURCE CITATION: Every confirmed requirement line item must include a 'source' field citing the exact 'source_id' drawn verbatim from the extractions.\n- ZERO-STATE VALIDATION: If a source has an empty 'stated_requirements' array, it contributes exactly zero confirmed FR/NFR items.\n- DETAIL PRESERVATION: Retain exact numbers, named fields, and threshold conditions from source material when the requirement is eligible for FR/NFR inclusion.\n\n\n## 2. PRIORITY ASSIGNMENT\nAssign priority (Must Have / Should Have / Nice to Have) to valid FRs/NFRs strictly using this framework:\n- MUST HAVE: Driven by explicit \"must\" language, hard deadlines, or critical technical constraints.\n- SHOULD HAVE: Requested items that are clear but lack explicit firm/urgent commitments.\n- NICE TO HAVE: Only for requirements where the source text explicitly notes casual mention or non-binding exploration.\n- [CRITICAL CONSTRAINT]: Do not assign priorities to ambiguous items, missing information items, or open questions, as they are barred from the FR/NFR tables entirely.\n\n## 3. ACCEPTANCE CRITERIA\n- Every single FR or NFR containing specific, well-defined values (exact numbers, systems, explicit thresholds) MUST have a corresponding entry in the acceptance_criteria section describing how to test it.\n- [CRITICAL CONSTRAINT]: Never write acceptance criteria for vague, ambiguous items, or open questions. Acceptance criteria describe how to verify a real requirement, not how to resolve an open question.\n\n## 4. GAP ANALYSIS (OPEN QUESTIONS & DEPENDENCIES)\n- COMPLETE RETENTION: Every single item present in 'cross_source_conflicts', 'stakeholder_tensions', and 'open_clarification_questions' must be captured within the PRD's 'open_questions' or 'dependencies' sections. None may be silently omitted.\n- CONTESTED LABELING: Use \"(contested, pending resolution)\" only when preserving the conflicting positions in open_questions or dependencies, or in another section explicitly intended to represent unresolved conflict.\nCONTESTED ITEMS ARE NOT CONFIRMED REQUIREMENTS: The label \"(contested, pending resolution)\" does NOT make a conflicting requirement valid for the FR or NFR sections. Do not use the label as a mechanism for allowing a conflicted requirement into those sections.\nNO WINNER SELECTION: When a cross-source conflict exists, do not select the newer, more detailed, more specific, or apparently more authoritative version as the confirmed requirement. The conflict must remain unresolved unless the input explicitly provides a resolution.\n- AMBIGUOUS VS CONTESTED: Items that are merely vague, underspecified, or pulled from 'ambiguous_items' or 'missing_info' are NOT contested. Place them in 'open_questions' as clarification needs, without a priority and WITHOUT the \"(contested, pending resolution)\" label.\n- STAKEHOLDER TENSIONS: Every tension entry from the gap analysis must appear explicitly by name, clearly outlining both parties' conflicting positions within either the 'dependencies' or 'open_questions' sections without exception.\n\n## 5. OUT OF SCOPE BOUNDARY\n- [CRITICAL CONSTRAINT]: The 'out_of_scope' section must ONLY contain items that a stakeholder has explicitly, clearly, and definitively excluded in the source extractions. \n- Never place items that are merely contested, ambiguous, unresolved, or under active discussion into the 'out_of_scope' section.\n\n## 6. PRODUCT OVERVIEW & USER PERSONAS\n- METRICS & DATES: Success metrics must not include invented numeric targets or percentages unless that exact number is explicitly stated in the source. Otherwise, phrase the metric qualitatively.\n- USER PERSONAS: Include every explicitly named end-user or customer segment from the source data as a persona. Do not include a subset.\n- [CRITICAL CONSTRAINT]: Never introduce internal roles (Product Managers, Engineers, Designers, meeting attendees) as user personas under any label. \n\n---\n\n# PRE-FLIGHT CHECKLIST\nBefore generating the final JSON output payload, execute this verification step:\n1. Did I transform a requirement into a question, a question into a requirement, a consideration into a decision, or a conflict into a resolved requirement? (Forbidden)\n2. Did I convert an unresolved item into Out of Scope? (Forbidden)\n3. Are there any items from the Gap Analysis missing from Open Questions or Dependencies? (Forbidden)\n4. Do any sections contradict each other regarding the status of a contested item? (Forbidden)\n\n\nBefore generating FR/NFR IDs, perform this check for EVERY candidate requirement:\n\n1. Identify the candidate from the stated_requirements array.\n2. Check cross_source_conflicts and stakeholder_tensions for the same or substantially equivalent topic, metric, behavior, threshold, timing, scope, or decision.\n3. If a conflict or stakeholder tension exists, mark the candidate as CONFLICTED.\nA CONFLICTED candidate MUST NOT appear in FR or NFR.\n4. Preserve the conflicting positions as unresolved information in open_questions or dependencies.\n5. Only candidates with no applicable unresolved conflict or stakeholder tension may proceed to FR/NFR generation.\n\nFINAL PRE-FLIGHT VALIDATION\n\nBefore producing the final PRD:\n\n1. For every FR and NFR, verify that its underlying stated_requirement is **NOT involved in any unresolved cross_source_conflicts or stakeholder_tensions.\n2. If an FR/NFR is involved in an unresolved conflict, remove it from FR/NFR.\n3. Do not create an acceptance criterion for a requirement that has been removed because of an unresolved conflict.\n4. Return the PRD as structured JSON matching the schema provided.\n"
+            },
+            {
+              "content": "=REQUIREMENT EXTRACTIONS:\n{{ JSON.stringify($json.extractions) }}\n\nGAP ANALYSIS REPORT:\n{{ JSON.stringify($json.GapAnalysis) }}"
+            }
+          ]
+        },
+        "builtInTools": {},
+        "options": {
+          "textFormat": {
+            "textOptions": {
+              "type": "json_schema",
+              "schema": "{\n  \"type\": \"object\",\n  \"properties\": {\n    \"product_overview\": {\n      \"type\": \"object\",\n      \"properties\": {\n        \"product_name\": { \"type\": \"string\" },\n        \"document_version\": { \"type\": \"string\" },\n        \"author\": { \"type\": \"string\" },\n        \"date\": { \"type\": \"string\" },\n        \"status\": { \"type\": \"string\" }\n      },\n      \"required\": [\"product_name\", \"document_version\", \"author\", \"date\", \"status\"],\n      \"additionalProperties\": false\n    },\n    \"goals_and_objectives\": {\n      \"type\": \"object\",\n      \"properties\": {\n        \"business_goal\": { \"type\": \"string\" },\n        \"user_goal\": { \"type\": \"string\" },\n        \"success_metrics\": { \"type\": \"array\", \"items\": { \"type\": \"string\" } }\n      },\n      \"required\": [\"business_goal\", \"user_goal\", \"success_metrics\"],\n      \"additionalProperties\": false\n    },\n    \"user_personas\": {\n      \"type\": \"array\",\n      \"items\": {\n        \"type\": \"object\",\n        \"properties\": {\n          \"name_or_role\": { \"type\": \"string\" },\n          \"key_need\": { \"type\": \"string\" },\n          \"current_workaround\": { \"type\": \"string\" }\n        },\n        \"required\": [\"name_or_role\", \"key_need\", \"current_workaround\"],\n        \"additionalProperties\": false\n      }\n    },\n    \"functional_requirements\": {\n      \"type\": \"array\",\n      \"items\": {\n        \"type\": \"object\",\n        \"properties\": {\n          \"id\": { \"type\": \"string\" },\n          \"requirement\": { \"type\": \"string\" },\n          \"priority\": { \"type\": \"string\" },\n          \"source\": { \"type\": \"string\" }\n        },\n        \"required\": [\"id\", \"requirement\", \"priority\", \"source\"],\n        \"additionalProperties\": false\n      }\n    },\n    \"non_functional_requirements\": {\n      \"type\": \"array\",\n      \"items\": {\n        \"type\": \"object\",\n        \"properties\": {\n          \"id\": { \"type\": \"string\" },\n          \"requirement\": { \"type\": \"string\" },\n          \"category\": { \"type\": \"string\" },\n          \"target\": { \"type\": \"string\" }\n        },\n        \"required\": [\"id\", \"requirement\", \"category\", \"target\"],\n        \"additionalProperties\": false\n      }\n    },\n    \"acceptance_criteria\": {\n      \"type\": \"array\",\n      \"items\": {\n        \"type\": \"object\",\n        \"properties\": {\n          \"feature\": { \"type\": \"string\" },\n          \"criteria\": { \"type\": \"array\", \"items\": { \"type\": \"string\" } }\n        },\n        \"required\": [\"feature\", \"criteria\"],\n        \"additionalProperties\": false\n      }\n    },\n    \"out_of_scope\": { \"type\": \"array\", \"items\": { \"type\": \"string\" } },\n    \"dependencies\": {\n      \"type\": \"array\",\n      \"items\": {\n        \"type\": \"object\",\n        \"properties\": {\n          \"dependency\": { \"type\": \"string\" },\n          \"owner\": { \"type\": \"string\" },\n          \"status\": { \"type\": \"string\" },\n          \"risk\": { \"type\": \"string\" }\n        },\n        \"required\": [\"dependency\", \"owner\", \"status\", \"risk\"],\n        \"additionalProperties\": false\n      }\n    },\n    \"assumptions\": { \"type\": \"array\", \"items\": { \"type\": \"string\" } },\n    \"open_questions\": { \"type\": \"array\", \"items\": { \"type\": \"string\" } },\n    \"timeline\": {\n      \"type\": \"array\",\n      \"items\": {\n        \"type\": \"object\",\n        \"properties\": {\n          \"milestone\": { \"type\": \"string\" },\n          \"target_date\": { \"type\": \"string\" }\n        },\n        \"required\": [\"milestone\", \"target_date\"],\n        \"additionalProperties\": false\n      }\n    }\n  },\n  \"required\": [\n    \"product_overview\", \"goals_and_objectives\", \"user_personas\",\n    \"functional_requirements\", \"non_functional_requirements\",\n    \"acceptance_criteria\", \"out_of_scope\", \"dependencies\",\n    \"assumptions\", \"open_questions\", \"timeline\"\n  ],\n  \"additionalProperties\": false\n}"
+            }
+          },
+          "temperature": 0.2
+        }
+      },
+      "id": "f332bf35-21c8-4a34-8dcd-23207c3d8355",
+      "name": "PRD Generator",
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 2.3,
+      "position": [
+        1184,
+        192
+      ],
+      "credentials": {
+        "openAiApi": {
+          "id": "IeccoVk2KCcorijD",
+          "name": "OpenAI account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "gpt-4o-mini",
+          "mode": "list",
+          "cachedResultName": "GPT-4O-MINI"
+        },
+        "responses": {
+          "values": [
+            {
+              "role": "system",
+              "content": "You are a Critique agent for a product documentation system. \nYour job is ONLY to identify execution issues in a generated PRD against source extraction and gap analysis data. Do not rewrite or fix anything.\n\n# CRITICAL OPERATIONAL PROTOCOL (THINKING STEPS)\nBefore outputting the final JSON, you must process the input data using this exact three-step logic. Think through this step-by-step:\n1. Identify all items in the Extractions marked as \"stated_requirements\". These are the ONLY items allowed to be checked for omission in PRD 'functional_requirements' and 'non_functional_requirements'.\n2. Identify all named items in the Gap Analysis 'open_clarification_questions', 'cross_source_conflicts', and 'stakeholder_tensions'. Ensure they exist in the PRD's 'open_questions' or 'dependencies' only they should not be converted to FR or NFR. \n3. Identify all items in the Extractions marked as \"ambiguous_items\" or \"missing_info\". You are STRICKLY FORBIDDEN from reporting these as completeness gaps in FR or NFR sections. If they appear in the PRD's 'open_questions', they are handled correctly.\n4. VERDICT & SUMMARY SYNCHRONIZATION:\n   - If ALL four issue arrays (grounding_issues, completeness_gaps, consistency_issues, mislabeling_issues) are completely empty `[]`, you MUST set \"overall_verdict\" to \"pass\".\n   - If \"overall_verdict\" is \"pass\", the \"summary\" string MUST read exactly: \"The generated PRD successfully meets all grounding, completeness, consistency, and labeling constraints against the source material. No issues found.\"\n   - You are strictly forbidden from inventing issues in the summary text if the issue arrays are empty.\n\n\n---\n\n# CATEGORY VALIDATION LOGIC\n\n## 1. GROUNDING VIOLATIONS\nFlag any claim, metric, persona, date, or requirement in the PRD that cannot be tracked back to the extractions or gap analysis.\n- EXCLUSION: If fields like 'date', 'author', or 'document_version' are set to \"Not specified in source material\", it is CORRECT. Do NOT flag this as an issue. Only flag if content is completely fabricated.\n- PERSONAS: Flag a persona as a grounding issue if they represent an internal stakeholder/meeting attendee instead of an explicitly named end-user/customer segment. \n- PERSONA EXCLUSION: Do not raise a grounding issue if the persona name appears verbatim in an extraction's stakeholders list. Validate persona names individually.\n\n## 2. COMPLETENESS GAPS\nCheck if items present in the Extractions or Gap Analysis were entirely omitted from the PRD.\n- STATED REQUIREMENTS ONLY: Check 'functional_requirements' (FR) and 'non_functional_requirements' (NFR) ONLY against the \"stated_requirements\" arrays in the extractions.\n- STRICT EXCLUSION (AMBIGUOUS/MISSING INFO): If an item is listed under \"ambiguous_items\" or \"missing_info\" in the extractions, or if it is an open question or covered in the Gap Analysis, do NOT report it as missing under FR or NFR. \n- NFR EXCLUSION: If the extractions contain zero items under \"stated_requirements\" that map to NFRs, an empty \"non_functional_requirements\" array in the PRD is CORRECT. Do NOT flag it as a gap.\n- OPEN QUESTIONS & DEPENDENCIES: Cross-check every item in 'open_clarification_questions', 'cross_source_conflicts', and 'stakeholder_tensions' from the Gap Analysis. Every single one must be present in the PRD's 'open_questions' or 'dependencies'. Flag any dropped item. No additional questions outside these sources are allowed.\n- PERSONA GAPS: Check 'user_personas' against every explicitly named end-user/customer segment in the extractions. Do not flag a gap based on questions asked inside the \"missing_info\" block. If there are no explicitly named target customer segments or personas in the extraction fields, an empty array is correct.\n- Before flagging a persona as an internal stakeholder, verify it is NOT explicitly named as a target user/customer segment anywhere in a source's own framing (e.g., a product brief's 'Target Users' section) — a name appearing in such a list is definitionally an end-user persona, not an internal stakeholder, regardless of the role title \n\n\n## 3. INTERNAL CONSISTENCY\n- Flag any item treated as \"contested\"/\"unresolved\" in one PRD section while stated as a settled fact, firm requirement, or excluded (out_of_scope) in another section of the same PRD.\n- CONTESTED ITEMS: Flag any item labeled in the Gap Analysis under 'cross_source_conflicts' or 'stakeholder_tensions' that is converted in FR or NFR, the contested item should be only present in OPEN QUESTIONS & DEPENDENCIES.\n\n## 4. MISLABELING\n-Flag any item labeled \"(contested, pending resolution)\" in the PRD that is NOT listed in the Gap Analysis under 'cross_source_conflicts' or 'stakeholder_tensions'. \n\n- MANDATORY VERIFICATION STEP: Before raising a mislabeling issue disputing a contested status, you must verify it is absent from the conflict arrays. If it is present in either array, you are strictly forbidden from disputing it.\n- OUT OF SCOPE BOUNDARY: Any item drawn from 'ambiguous_items', 'missing_info', or 'open_clarification_questions' must NOT appear in the 'out_of_scope' section of the PRD. If it does, report it as a mislabeling_issue.\n\n---\n\n# EVIDENCE REQUIREMENTS\n- For Grounding, Consistency, and Mislabeling issues: You must include an \"evidence\" string directly quoting the source extraction text or PRD section that proves the issue.\n- For Completeness gaps: You must provide the exact \"missing_source_id\" associated with the dropped requirement.\n\n---\n\n# OUTPUT FORMAT\nReturn structured JSON matching this schema:\n{\n  \"grounding_issues\": [{\"section\": \"string\", \"description\": \"string\", \"evidence\": \"string\"}],\n  \"completeness_gaps\": [{\"section\": \"string\", \"description\": \"string\", \"missing_source_id\": \"string\"}],\n  \"consistency_issues\": [{\"section\": \"string\", \"description\": \"string\", \"evidence\": \"string\"}],\n  \"mislabeling_issues\": [{\"section\": \"string\", \"description\": \"string\", \"evidence\": \"string\"}],\n  \"overall_verdict\": \"pass\" | \"needs_revision\",\n  \"summary\": \"string\"\n}\n"
+            },
+            {
+              "content": "=Generated PRD :\n{{ JSON.stringify($json.generatedPRD) }}\n\nREQUIREMENT EXTRACTIONS:\n{{ JSON.stringify($json.extractions) }}\n\nGAP ANALYSIS REPORT:\n{{ JSON.stringify($json.GapAnalysis) }}"
+            }
+          ]
+        },
+        "builtInTools": {},
+        "options": {
+          "textFormat": {
+            "textOptions": {
+              "type": "json_schema",
+              "schema": "{\n  \"type\": \"object\",\n  \"properties\": {\n    \"grounding_issues\": {\n      \"type\": \"array\",\n      \"items\": {\n        \"type\": \"object\",\n        \"properties\": {\n          \"section\": { \"type\": \"string\" },\n          \"description\": { \"type\": \"string\" },\n          \"evidence\": { \"type\": \"string\" }\n        },\n        \"required\": [\"section\", \"description\", \"evidence\"],\n        \"additionalProperties\": false\n      }\n    },\n    \"completeness_gaps\": {\n      \"type\": \"array\",\n      \"items\": {\n        \"type\": \"object\",\n        \"properties\": {\n          \"section\": { \"type\": \"string\" },\n          \"description\": { \"type\": \"string\" },\n          \"missing_source_id\": { \"type\": \"string\" }\n        },\n        \"required\": [\"section\", \"description\", \"missing_source_id\"],\n        \"additionalProperties\": false\n      }\n    },\n    \"consistency_issues\": {\n      \"type\": \"array\",\n      \"items\": {\n        \"type\": \"object\",\n        \"properties\": {\n          \"section\": { \"type\": \"string\" },\n          \"description\": { \"type\": \"string\" },\n          \"evidence\": { \"type\": \"string\" }\n        },\n        \"required\": [\"section\", \"description\", \"evidence\"],\n        \"additionalProperties\": false\n      }\n    },\n    \"mislabeling_issues\": {\n      \"type\": \"array\",\n      \"items\": {\n        \"type\": \"object\",\n        \"properties\": {\n          \"section\": { \"type\": \"string\" },\n          \"description\": { \"type\": \"string\" },\n          \"evidence\": { \"type\": \"string\" }\n        },\n        \"required\": [\"section\", \"description\", \"evidence\"],\n        \"additionalProperties\": false\n      }\n    },\n    \"overall_verdict\": { \"type\": \"string\", \"enum\": [\"pass\", \"needs_revision\"] },\n    \"summary\": { \"type\": \"string\" }\n  },\n  \"required\": [\"grounding_issues\", \"completeness_gaps\", \"consistency_issues\", \"mislabeling_issues\", \"overall_verdict\", \"summary\"],\n  \"additionalProperties\": false\n}"
+            }
+          },
+          "temperature": 0
+        }
+      },
+      "id": "e657d269-5c03-4e2a-8534-dbbc5c2ae1a6",
+      "name": "Critique Agent",
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 2.3,
+      "position": [
+        1920,
+        304
+      ],
+      "credentials": {
+        "openAiApi": {
+          "id": "IeccoVk2KCcorijD",
+          "name": "OpenAI account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "gpt-4o-mini",
+          "mode": "list",
+          "cachedResultName": "GPT-4O-MINI"
+        },
+        "responses": {
+          "values": [
+            {
+              "role": "system",
+              "content": "=You are a Resolver Agent for a product documentation system.\nThe Resolver is not allowed to improve, enrich, professionalize, summarize, or infer content. It may only modify the generated PRD when required to address a valid critique finding or restore source-grounded content that the critique identifies as missing/misrepresented.\n\nYou receive:\n\n1. A generated PRD\n2. A Critique Report identifying issues in the PRD\n3. The Original Extractions containing source-grounded requirements\n4. A Gap Analysis identifying gaps, conflicts, ambiguities, missing information,\n   dependencies, and stakeholder tensions\n\nYour job is to produce a corrected PRD by resolving valid issues identified by\nthe Critique Report while keeping the PRD grounded in the Original Extractions and Gap Analysis.\n\nThe Resolver is a targeted correction layer, NOT a PRD regeneration agent.\nPreserve all existing PRD content that is correct and does not require correction.\n\n============================ TEMPLATE HANDLING ============================\n\nFollow the section structure, field labels, and organization exactly as given\nin the template below.\nIf the template changes in future runs, adapt to the supplied template rather\nthan relying on a fixed PRD structure.\n\nTemplate fields do not justify creating content. If a field cannot be populated from the source material, leave it as \"Not specified in source material\" or use the appropriate unresolved representation. Never infer content to make the PRD more complete or professional.\n\nTEMPLATE:\n\n{{ $('Prd Template').item.json.templateText }}\n\n=== MINIMAL-CHANGE PRINCIPLE ===\n\nMake the minimum changes necessary to correct valid Critique findings.\n\nDo not enrich, improve, professionalize, summarize, infer, or rewrite the PRD for quality or completeness beyond what is required by the Critique Report.\n\nWhen adding content, copy the source meaning and classification from the\nOriginal Extractions or Gap Analysis as closely as possible.\n\nDo not transform:\n\na requirement into a question\na question into a requirement\na consideration into a decision\na conflict into a resolved requirement\nmissing information into an assumption\nan unresolved item into Out of Scope\n\nPreserve all other generated PRD content unchanged.\n\n============================ RESOLUTION RULES ===========================\n\n1. CRITIQUE-DRIVEN CORRECTION\n\nAddress every valid item in:\n* grounding_issues\n* completeness_gaps\n* consistency_issues\n* mislabeling_issues\n\nMake only the changes necessary to correct those issues.\nDo not unnecessarily rewrite or restructure correct PRD content.\n\nIf the critique report highlights there are no NFR validate against the Original extraction and Gap Analysis reports. Do not Fabricate or Invent new NFR that are not grounded in source data.\n\n---\n\n2. SOURCE AUTHORITY\n\n- Use the Original Extractions as the authority for what was actually stated.\n- Use the Gap Analysis to understand gaps, conflicts, ambiguities, dependencies,\nand stakeholder tensions.\n- Do not treat the generated PRD or Critique Report as authoritative over the\nsource material.\n- If a critique finding conflicts with the Original Extractions or Gap Analysis,\nfollow the source material.\n\n_  Do not Fabricate or Invent new FR or  NFR that are not grounded in source data.\n\n---\n\n3. COMPLETENESS\n\n- When correcting a completeness issue, add the missing information only when\nit is supported by the Original Extractions or Gap Analysis.\n- Do not remove a valid source-grounded requirement simply because it was not\nidentified by the Critique Report.\n- Do not add information solely to make the PRD appear more complete.\n\n---\n\n4. GROUNDING\n\n- Do not Invent new Personas, new Goals, new Assumptions and NFR requirements.\n\n- Do not introduce unsupported:\n\n* requirements\n* goals or objectives\n* priorities\n* personas\n* success metrics\n* assumptions\n* dates\n* technical decisions\n* acceptance criteria\n* scope decisions\n\n- Never reduce user_personas to a single placeholder entry. If some personas\n  are correctly flagged as ungrounded, remove only those specific entries\n  and preserve any personas that ARE grounded in the extractions. If zero\n  personas can be grounded, return an empty array — never a fabricated\n  \"Not specified\" placeholder entry standing in for the whole section.\n\n- Preserve the meaning and level of specificity of the source material.\n\n- If information is not established, represent it as unresolved, missing, or\n\"Not specified in source material\" where appropriate to the template.\n\nPreserve every source-stated requirement, constraint, technical requirement, consideration, stakeholder position, and deadline in an appropriate section. Do not replace a stated requirement with only its associated clarification question.\n\n---\n\n5. AMBIGUITIES AND MISSING INFORMATION\n\n- Do not convert ambiguous_item or missing_info entries into confirmed\nfunctional or non-functional requirements.\n\n- Represent them as open questions, pending decisions, dependencies, or other\nappropriate unresolved items supported by the source material.\n\n---\n\n6. CONFLICT PRESERVATION\n\n- Do NOT resolve conflicts identified by the Original Extractions or Gap\nAnalysis.\n- Preserve conflicting requirements, stakeholder positions, and source\nstatements accurately in the PRD.\n- Do not choose one side, infer a preferred solution, or create a decision that\nis not explicitly present in the source material.\n- The Resolver may correct a Critique finding where the PRD incorrectly\nrepresents a conflict, but must preserve the underlying conflict itself.\n-  Keep the status of contested or unresolved items consistent across all\naffected PRD sections.\n\n-   If the Gap Analysis's cross_source_conflicts describes a conflict between two specific values or positions \n(e.g., two different refresh intervals, two different architectural approaches), \nBOTH conflicting values MUST appear somewhere in the final PRD, each labeled \"(contested, pending resolution)\" in every section where they appear. \nThis requirement holds regardless of the input state: if the generated PRD already contains both sides with inconsistent labeling, add the missing label. \nIf the generated PRD contains only ONE side, you MUST add the missing side back into the PRD, \nusing its exact wording from the Original Extractions, WITH the contested label attached.\n A genuine cross-source conflict must never be represented in the final PRD by only \n one of its two values — omission of one side is a more severe error than inconsistent labeling of both.\n\n---\n\n7. CLASSIFICATION\n\nEnsure information is represented in the appropriate PRD section.\nDo not classify:\n\n* decisions as functional requirements\n* dependencies as requirements\n* ambiguities as confirmed requirements\n* unresolved items as Out of Scope\n\nOnly mark an item Out of Scope when the source material explicitly supports\nthat decision.\n\n An item must never remain in Out of Scope if the Gap Analysis lists it\n as a cross_source_conflict or stakeholder_tension. If Out of Scope\n currently contains such an item, move it to open_questions instead.\n---\n\n8. TIMELINE AND PRIORITY\n\n- Preserve all source-supported deadlines and milestones relevant to the PRD.\n- Do not invent dates or priorities.\n- If source dates or priorities conflict, preserve the conflict rather than\nchoosing one.\n\n---\n\n9. CRITIQUE PASS\n\nIf:\n\n* overall_verdict is \"pass\"\n* grounding_issues is empty\n* completeness_gaps is empty\n* consistency_issues is empty\n* mislabeling_issues is empty\n\nreturn the original PRD unchanged.\n\n============================ FINAL OUTPUT ============================\n\nReturn only the corrected PRD as structured JSON matching the same schema as\nthe original PRD Generator and the supplied template.\n\nDo not return analysis, explanations, reasoning, critique commentary,\nvalidation notes, markdown, or code fences.\n"
+            },
+            {
+              "content": "=Generated PRD :\n{{ JSON.stringify($json.generatedPRD) }}\n\nCritique Report : \n{{ JSON.stringify($json.critiqueReport) }}\n\nREQUIREMENT EXTRACTIONS:\n{{ JSON.stringify($json.extractions) }}\n\nGAP ANALYSIS REPORT:\n{{ JSON.stringify($json.GapAnalysis) }}"
+            }
+          ]
+        },
+        "builtInTools": {},
+        "options": {
+          "textFormat": {
+            "textOptions": {
+              "type": "json_schema",
+              "schema": "\n{\n  \"type\": \"object\",\n  \"properties\": {\n    \"product_overview\": {\n      \"type\": \"object\",\n      \"properties\": {\n        \"product_name\": { \"type\": \"string\" },\n        \"document_version\": { \"type\": \"string\" },\n        \"author\": { \"type\": \"string\" },\n        \"date\": { \"type\": \"string\" },\n        \"status\": { \"type\": \"string\" }\n      },\n      \"required\": [\"product_name\", \"document_version\", \"author\", \"date\", \"status\"],\n      \"additionalProperties\": false\n    },\n    \"goals_and_objectives\": {\n      \"type\": \"object\",\n      \"properties\": {\n        \"business_goal\": { \"type\": \"string\" },\n        \"user_goal\": { \"type\": \"string\" },\n        \"success_metrics\": { \"type\": \"array\", \"items\": { \"type\": \"string\" } }\n      },\n      \"required\": [\"business_goal\", \"user_goal\", \"success_metrics\"],\n      \"additionalProperties\": false\n    },\n    \"user_personas\": {\n      \"type\": \"array\",\n      \"items\": {\n        \"type\": \"object\",\n        \"properties\": {\n          \"name_or_role\": { \"type\": \"string\" },\n          \"key_need\": { \"type\": \"string\" },\n          \"current_workaround\": { \"type\": \"string\" }\n        },\n        \"required\": [\"name_or_role\", \"key_need\", \"current_workaround\"],\n        \"additionalProperties\": false\n      }\n    },\n    \"functional_requirements\": {\n      \"type\": \"array\",\n      \"items\": {\n        \"type\": \"object\",\n        \"properties\": {\n          \"id\": { \"type\": \"string\" },\n          \"requirement\": { \"type\": \"string\" },\n          \"priority\": { \"type\": \"string\" },\n          \"source\": { \"type\": \"string\" }\n        },\n        \"required\": [\"id\", \"requirement\", \"priority\", \"source\"],\n        \"additionalProperties\": false\n      }\n    },\n    \"non_functional_requirements\": {\n      \"type\": \"array\",\n      \"items\": {\n        \"type\": \"object\",\n        \"properties\": {\n          \"id\": { \"type\": \"string\" },\n          \"requirement\": { \"type\": \"string\" },\n          \"category\": { \"type\": \"string\" },\n          \"target\": { \"type\": \"string\" }\n        },\n        \"required\": [\"id\", \"requirement\", \"category\", \"target\"],\n        \"additionalProperties\": false\n      }\n    },\n    \"acceptance_criteria\": {\n      \"type\": \"array\",\n      \"items\": {\n        \"type\": \"object\",\n        \"properties\": {\n          \"feature\": { \"type\": \"string\" },\n          \"criteria\": { \"type\": \"array\", \"items\": { \"type\": \"string\" } }\n        },\n        \"required\": [\"feature\", \"criteria\"],\n        \"additionalProperties\": false\n      }\n    },\n    \"out_of_scope\": { \"type\": \"array\", \"items\": { \"type\": \"string\" } },\n    \"dependencies\": {\n      \"type\": \"array\",\n      \"items\": {\n        \"type\": \"object\",\n        \"properties\": {\n          \"dependency\": { \"type\": \"string\" },\n          \"owner\": { \"type\": \"string\" },\n          \"status\": { \"type\": \"string\" },\n          \"risk\": { \"type\": \"string\" }\n        },\n        \"required\": [\"dependency\", \"owner\", \"status\", \"risk\"],\n        \"additionalProperties\": false\n      }\n    },\n    \"assumptions\": { \"type\": \"array\", \"items\": { \"type\": \"string\" } },\n    \"open_questions\": { \"type\": \"array\", \"items\": { \"type\": \"string\" } },\n    \"timeline\": {\n      \"type\": \"array\",\n      \"items\": {\n        \"type\": \"object\",\n        \"properties\": {\n          \"milestone\": { \"type\": \"string\" },\n          \"target_date\": { \"type\": \"string\" }\n        },\n        \"required\": [\"milestone\", \"target_date\"],\n        \"additionalProperties\": false\n      }\n    }\n  },\n  \"required\": [\n    \"product_overview\", \"goals_and_objectives\", \"user_personas\",\n    \"functional_requirements\", \"non_functional_requirements\",\n    \"acceptance_criteria\", \"out_of_scope\", \"dependencies\",\n    \"assumptions\", \"open_questions\", \"timeline\"\n  ],\n  \"additionalProperties\": false\n}"
+            }
+          },
+          "temperature": 0.2
+        }
+      },
+      "id": "3423afa3-92e6-4ed4-8889-29c0eef60142",
+      "name": "Resolver",
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 2.3,
+      "position": [
+        2608,
+        336
+      ],
+      "credentials": {
+        "openAiApi": {
+          "id": "IeccoVk2KCcorijD",
+          "name": "OpenAI account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "a35430b8-55dd-431a-b987-03f722342cb7",
+              "name": "finalPrd",
+              "value": "={{ $json.output[0].content[0].text }}",
+              "type": "object"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "dfe121d9-6558-41d4-ab90-d0e004589db6",
+      "name": "Set finalPrd",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        2896,
+        336
+      ]
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "gpt-4o-mini",
+          "mode": "list",
+          "cachedResultName": "GPT-4O-MINI"
+        },
+        "responses": {
+          "values": [
+            {
+              "role": "system",
+              "content": "You are a Story Breakdown agent for a product documentation system. \n\nYou receive:  \nA finalized PRD and convert it into Epics, Features, and User Stories for engineering to estimate and build from.\nEnsuring the Completeness of your Final Output, Make sure,  from the received finalized PRD Include - \n- Every Functional Requirement \n- Every Non Functional Requirement \n\n=================== SOURCE AUTHORITY ===================\n- Only use functional_requirements, non_functional_requirements,\nuser_personas, and acceptance_criteria explicitly present in the PRD. \n- Do NOT invent scope, features, or personas not present in the source PRD.\n\n=================== STRUCTURE ===================\n1. Group related functional_requirements into EPICS (a coherent piece of\n   functionality, e.g. \"Reporting & Filtering\", \"Data Export\").\n2. Break each epic into FEATURES, each tracing back to one or more specific\n   functional_requirement IDs from the PRD.\n3. For each feature, write USER STORIES in the exact format:\n   \"As a [persona], I want [goal], so that [reason].\"\n4. The \"so that\" reason in a user story must trace directly to the purpose\n   stated in the specific functional_requirement being broken down — not to\n   any general need listed elsewhere in that persona's profile. Do not\n   borrow a persona's stated key_need to justify a story unless that\n   requirement is actually about that need.\n\n=================== PERSONA HANDLING ===================\n- If a feature is relevant to multiple personas from user_personas, create\n  SEPARATE user stories for each persona — do not merge into one generic\n  \"As a user...\" story. Each persona's story should reflect their specific\n  key_need where it differs.\n- If user_personas is empty or a feature has no clear persona fit, use \"As\n  a [role implied by the requirement's context]\" only if reasonably implied\n  by the PRD — otherwise use \"As a user of the system.\"\n\n=================== PRIORITY ===================\n- Inherit priority directly from the source functional_requirement's\n  priority field (Must Have / Should Have / Nice to Have). Do not\n  re-derive or change it.\n\n=================== ACCEPTANCE CRITERIA ===================\n- Pull acceptance criteria from the PRD's acceptance_criteria section where\n  it matches the feature. Do not invent new criteria not present in the\n  PRD. If none exist for a feature, leave the array empty rather than\n  fabricating criteria.\n\n=================== CONTESTED / UNRESOLVED ITEMS ===================\n- If a functional_requirement's text includes \"(contested, pending\n  resolution)\" or similar, the resulting user story MUST preserve this by\n  setting is_contested to true and including the qualifier in the story\n  text. Do NOT write a confident, settled-sounding story for a\n  requirement the PRD itself marked as unresolved.\n\n===================  FUNCTIONAL REQUIREMENTS ===================\n-  Every functional_requirement from the PRD must be linked to at least one feature.\n   Before finalizing, verify no FR id is missing from every linked_requirement_ids array combined. \n\n-  If a feature's linked_requirement_ids includes multiple FR ids, \n   the feature's user_stories must collectively address the actual content of ALL linked requirements — not just one of them. \n   If a linked requirement isn't reflected in any story, either add a story for it or remove it from linked_requirement_ids. \n\n- Grouping requirements into the same feature must not reduce requirement\n  coverage. If combining multiple FRs into one feature makes it difficult to\n  explicitly represent the complete content of each FR in the user stories,\n  create separate features instead. Requirement grouping is optional;\n  requirement coverage is mandatory.\n\n=================== NON-FUNCTIONAL REQUIREMENTS ===================\n- Do not convert NFRs into user stories. Instead, attach relevant NFRs as\n  constraints on the features/stories they apply to (e.g., a performance\n  NFR attaches as a constraint on a relevant story, not a story of its own).\n and append the NFR ID in the inked_requirement_ids array \n\n- Every non_functional_requirement from the PRD must appear as a constraint on at least one relevant feature. \n  If an NFR doesn't clearly map to one feature (e.g., a project-level dependency), attach it to the epic level instead of dropping it.\n\n- Preserve the actual content of each NFR when attaching it as a constraint.\n  Do not summarize an NFR so broadly that its specific requirement, target,\n  limitation, condition, or technical constraint is lost. One NFR may be\n  attached to multiple features when applicable, but it must not be dropped,\n  generalized away, or replaced by a different constraint.\n\n- Before finalizing, verify no NFR id is missing from Constraint array combined.\n   For this check, an NFR counts as covered only when its actual requirement\n  content is represented in the constraint, not merely when its ID is present \n\n===================Grounding Rules===================\nStrictly follow below rules for completeness/consistency checks\n\n- Only include information explicitly present in the provided Finalized PRD. Do not fabricate goals, metrics, personas, dates, or requirements.\n- Do not invent or create miss leading traceability\n- Before Finalizing the output, Ensure accuracy and completeness by checking everything from the provided PRD is captured in final ouput.\n- Before finalizing, enumerate every functional_requirement id in the PRD and confirm each is BOTH listed in a feature's linked_requirement_ids \n  AND substantively addressed in at least one user story's actual content — not merely listed. If no persona clearly fits a requirement, apply the fallback (\"As a user of the system\") rather than omitting it. \n- Before finalizing, enumerate every non_functional_requirement id and confirm each appears as a constraint on at least one feature or epic. \n  Do not omit any NFR silently, even if no feature seems like an obvious fit — attach it at the epic level in that case. \n- When is_contested is true, the qualifier \"(contested, pending resolution)\" MUST also appear explicitly in both the story text \n  And the priority field — setting the boolean alone is not sufficient. A reader viewing only the human-readable text (without inspecting is_contested) must still be able to tell the requirement is unresolved. \n\n\n\nReturn structured JSON matching the schema provided."
+            },
+            {
+              "content": "={{ JSON.stringify($json.finalPrd) }}"
+            }
+          ]
+        },
+        "builtInTools": {},
+        "options": {
+          "textFormat": {
+            "textOptions": {
+              "type": "json_schema",
+              "schema": "{\n  \"type\": \"object\",\n  \"properties\": {\n    \"epics\": {\n      \"type\": \"array\",\n      \"items\": {\n        \"type\": \"object\",\n        \"properties\": {\n          \"epic_id\": { \"type\": \"string\" },\n          \"title\": { \"type\": \"string\" },\n          \"description\": { \"type\": \"string\" },\n          \"constraints\": { \"type\": \"array\", \"items\": { \"type\": \"string\" } },\n          \"features\": {\n            \"type\": \"array\",\n            \"items\": {\n              \"type\": \"object\",\n              \"properties\": {\n                \"feature_id\": { \"type\": \"string\" },\n                \"title\": { \"type\": \"string\" },\n                \"linked_requirement_ids\": { \"type\": \"array\", \"items\": { \"type\": \"string\" } },\n                \"constraints\": { \"type\": \"array\", \"items\": { \"type\": \"string\" } },\n                \"user_stories\": {\n                  \"type\": \"array\",\n                  \"items\": {\n                    \"type\": \"object\",\n                    \"properties\": {\n                      \"story_id\": { \"type\": \"string\" },\n                      \"persona\": { \"type\": \"string\" },\n                      \"story\": { \"type\": \"string\" },\n                      \"priority\": { \"type\": \"string\" },\n                      \"acceptance_criteria\": { \"type\": \"array\", \"items\": { \"type\": \"string\" } },\n                      \"is_contested\": { \"type\": \"boolean\" }\n                    },\n                    \"required\": [\"story_id\", \"persona\", \"story\", \"priority\", \"acceptance_criteria\", \"is_contested\"],\n                    \"additionalProperties\": false\n                  }\n                }\n              },\n              \"required\": [\"feature_id\", \"title\", \"linked_requirement_ids\", \"constraints\", \"user_stories\"],\n              \"additionalProperties\": false\n            }\n          }\n        },\n        \"required\": [\"epic_id\", \"title\", \"description\", \"constraints\", \"features\"],\n        \"additionalProperties\": false\n      }\n    }\n  },\n  \"required\": [\"epics\"],\n  \"additionalProperties\": false\n}"
+            }
+          },
+          "temperature": 0.2
+        }
+      },
+      "id": "f60fcd6a-4e36-4afd-9ff2-0b8077ab95c9",
+      "name": "Story Breakdown Agent",
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 2.3,
+      "position": [
+        2112,
+        880
+      ],
+      "credentials": {
+        "openAiApi": {
+          "id": "IeccoVk2KCcorijD",
+          "name": "OpenAI account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const prd = $('Set finalPrd').first().json.finalPrd\n \nconst storyOutput = $input.first().json.output[0].content[0].text\n\nconst allFrIds = prd.functional_requirements.map(f => f.id);\nconst allNfrIds = prd.non_functional_requirements.map(n => n.id);\n\nconst linkedFrIds = new Set();\nconst allConstraintText = [];\n\nstoryOutput.epics.forEach(epic => {\n  allConstraintText.push(...(epic.constraints || [])); // epic-level constraints now checked too\n  epic.features.forEach(f => {\n    f.linked_requirement_ids.forEach(id => linkedFrIds.add(id));\n    allConstraintText.push(...(f.constraints || []));\n  });\n});\n\nconst missingFrs = allFrIds.filter(id => !linkedFrIds.has(id));\nconst missingNfrs = allNfrIds.filter(id =>\n  !allConstraintText.some(c => c.includes(id))\n);\n\nreturn [{\n  json: {\n    finalPrd: prd,\n    epics: storyOutput.epics,\n    validation: {\n      missingFrs,\n      missingNfrs,\n      isComplete: missingFrs.length === 0 && missingNfrs.length === 0\n    }\n  }\n}];"
+      },
+      "id": "937a3092-9404-4933-b031-81f789718a5d",
+      "name": "Stroy Evaluator",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2464,
+        880
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": false,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "d0c063c2-dee0-4380-8268-347fa664e551",
+              "leftValue": "={{ $json.validation.isComplete }}",
+              "rightValue": "={{ true }}",
+              "operator": {
+                "type": "boolean",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {
+          "ignoreCase": true
+        }
+      },
+      "id": "b2c62056-0580-4f09-bcd6-584c199992b3",
+      "name": "If",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        2688,
+        880
+      ]
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "gpt-4o-mini",
+          "mode": "list",
+          "cachedResultName": "GPT-4O-MINI"
+        },
+        "responses": {
+          "values": [
+            {
+              "role": "system",
+              "content": "# Role\n\nYou are a **User Story Finalizer Agent** responsible for applying a minimal, targeted patch to an existing Epic → Feature → User Story breakdown.\n\n# Inputs\n\nYou receive:\n\n* The existing Story Breakdown\n* A validation report identifying missing FR/NFR IDs\n* The Finalized PRD, which is the authoritative source for the actual requirement content\n\n# Objective\n\nAdd substantive coverage for the requirements identified as missing **without causing regression to the existing Story Breakdown**.\n\n# Rules\n\n1. **Minimal Change**\n\n   * Preserve all existing epics, features, stories, priorities, personas, acceptance criteria, and constraints unless a change is strictly required to cover a missing requirement.\n   * Prefer adding a targeted story or constraint over modifying existing content.\n   * Do not rewrite, restructure, remove, or improve existing content unnecessarily.\n\n2. **Requirement Coverage**\n\n   * Validation IDs identify what is missing; the **Finalized PRD defines what must be covered**.\n   * For every missing FR, represent its actual functional behavior and all material conditions, values, targets, or constraints in a user story.\n   * For every missing NFR, represent its actual requirement as a constraint.\n   * An ID alone does not constitute coverage.\n\n3. **FR Placement**\n\n   * Add the FR ID to the appropriate feature's `linked_requirement_ids`.\n   * Add the minimum story content required to substantively cover the FR.\n   * Use an existing feature when there is a genuine fit; otherwise create the smallest necessary feature/epic.\n\n4. **NFR Placement**\n\n   * Add the NFR as a substantive constraint to the most relevant feature.\n   * If no feature is appropriate, add it to the relevant epic's `constraints`.\n   * Preserve the NFR's actual meaning; do not replace it with a generic constraint.\n\n5. **Existing Story Changes**\n\n   * Modify an existing story **only when the missing requirement is clearly part of that story and cannot be covered safely by adding a separate story**.\n   * If modification is necessary, make the smallest possible change while preserving the original story's meaning.\n\n6. **Existing Story Rules**\n\n   * Follow the original Story Breakdown rules for persona, priority, acceptance criteria, and contested status.\n   * Do not invent acceptance criteria or other requirement details.\n   * Preserve `(contested, pending resolution)` wherever required by the source.\n\n7. **Grounding**\n\n   * Use only information explicitly present in the Finalized PRD.\n   * Do not infer, expand, generalize, or invent requirements, behavior, personas, priorities, metrics, or constraints.\n\n8. **Final Check**\n   Before returning the result, verify:\n\n   * Every `missingFr` is substantively represented in a story and linked to a feature.\n   * Every `missingNfr` is substantively represented as a constraint.\n   * No unrelated existing content was changed.\n   * No new unsupported information was introduced.\n\n# Output\n\nReturn the **complete Story Breakdown** using the existing schema, containing the original content plus only the minimum changes required to address the missing requirements.\n"
+            },
+            {
+              "content": "=EXISTING BREAKDOWN:\n{{ JSON.stringify($json.epics) }}\n\nVALIDATION REPORT (fix only these):\n{{ JSON.stringify($json.validation) }}\n\nFINAL PRD (for requirement text):\n{{ JSON.stringify($json.finalPrd) }}"
+            }
+          ]
+        },
+        "builtInTools": {},
+        "options": {
+          "textFormat": {
+            "textOptions": {
+              "type": "json_schema",
+              "schema": "{\n  \"type\": \"object\",\n  \"properties\": {\n    \"epics\": {\n      \"type\": \"array\",\n      \"items\": {\n        \"type\": \"object\",\n        \"properties\": {\n          \"epic_id\": { \"type\": \"string\" },\n          \"title\": { \"type\": \"string\" },\n          \"description\": { \"type\": \"string\" },\n          \"constraints\": { \"type\": \"array\", \"items\": { \"type\": \"string\" } },\n          \"features\": {\n            \"type\": \"array\",\n            \"items\": {\n              \"type\": \"object\",\n              \"properties\": {\n                \"feature_id\": { \"type\": \"string\" },\n                \"title\": { \"type\": \"string\" },\n                \"linked_requirement_ids\": { \"type\": \"array\", \"items\": { \"type\": \"string\" } },\n                \"constraints\": { \"type\": \"array\", \"items\": { \"type\": \"string\" } },\n                \"user_stories\": {\n                  \"type\": \"array\",\n                  \"items\": {\n                    \"type\": \"object\",\n                    \"properties\": {\n                      \"story_id\": { \"type\": \"string\" },\n                      \"persona\": { \"type\": \"string\" },\n                      \"story\": { \"type\": \"string\" },\n                      \"priority\": { \"type\": \"string\" },\n                      \"acceptance_criteria\": { \"type\": \"array\", \"items\": { \"type\": \"string\" } },\n                      \"is_contested\": { \"type\": \"boolean\" }\n                    },\n                    \"required\": [\"story_id\", \"persona\", \"story\", \"priority\", \"acceptance_criteria\", \"is_contested\"],\n                    \"additionalProperties\": false\n                  }\n                }\n              },\n              \"required\": [\"feature_id\", \"title\", \"linked_requirement_ids\", \"constraints\", \"user_stories\"],\n              \"additionalProperties\": false\n            }\n          }\n        },\n        \"required\": [\"epic_id\", \"title\", \"description\", \"constraints\", \"features\"],\n        \"additionalProperties\": false\n      }\n    }\n  },\n  \"required\": [\"epics\"],\n  \"additionalProperties\": false\n}\n"
+            }
+          },
+          "temperature": 0.2
+        }
+      },
+      "id": "a656daa1-b99b-4587-90a2-2add078cf5e0",
+      "name": "User Story Finalizer",
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 2.3,
+      "position": [
+        2976,
+        1088
+      ],
+      "credentials": {
+        "openAiApi": {
+          "id": "IeccoVk2KCcorijD",
+          "name": "OpenAI account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://us.cloud.langfuse.com/api/public/otel/v1/traces",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpBasicAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "value": "x-langfuse-ingestion-version: 4"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify($json) }}",
+        "options": {}
+      },
+      "id": "3d03ebb0-2c53-411b-bbc8-692d60bb1f53",
+      "name": "HTTP Request to Langfuse",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.5,
+      "position": [
+        1728,
+        864
+      ],
+      "credentials": {
+        "httpBasicAuth": {
+          "id": "jF2Bgmy5qsqnwvwN",
+          "name": "Unnamed credential"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "ddca2931-1efe-473e-89c2-62e8e369fb58",
+              "name": "requirement_Extractions",
+              "value": "={{ JSON.stringify($('Requirement Aggregator').item.json.extractions) }}",
+              "type": "array"
+            },
+            {
+              "id": "b78a6e05-7376-4900-858f-116000660155",
+              "name": "GapAnalysis",
+              "value": "={{ JSON.stringify($('Set Gap Analysis').item.json.GapAnalysis) }}",
+              "type": "object"
+            },
+            {
+              "id": "16c8b00d-d530-477a-bd3b-6e4ff8c16806",
+              "name": "generatedPRD",
+              "value": "={{ JSON.stringify($('Set generatedPRD').item.json.generatedPRD) }}",
+              "type": "object"
+            },
+            {
+              "id": "e2a48f90-3688-4c73-b81a-0e0c172f207b",
+              "name": "critiqueReport",
+              "value": "={{ JSON.stringify($('Set Critique Report').item.json.critiqueReport) }}",
+              "type": "object"
+            },
+            {
+              "id": "3fd801db-def2-4eab-a95e-9620f91847f6",
+              "name": "finalPrd",
+              "value": "={{JSON.stringify($('Set finalPrd').item.json.finalPrd) }}",
+              "type": "object"
+            },
+            {
+              "id": "f232d457-baf8-4df6-ac24-3454436deadf",
+              "name": "StoryBreakdown_Epics",
+              "value": "={{ JSON.stringify($('Stroy Evaluator').item.json.epics) }}",
+              "type": "array"
+            },
+            {
+              "id": "393af4fc-3203-497e-b602-30d979b1113d",
+              "name": "storyEvaluatorReport",
+              "value": "={{ JSON.stringify($('Stroy Evaluator').item.json.validation) }}",
+              "type": "object"
+            },
+            {
+              "id": "c5ab6d9c-67ff-48f5-96a3-a4028b77a457",
+              "name": "finalStory",
+              "value": "={{ $json.output[0].content[0].text }}",
+              "type": "object"
+            },
+            {
+              "id": "3c841552-17e7-45ba-ab3a-c145f482a949",
+              "name": "=batch_id",
+              "value": "={{ $('Batch Selector').item.json.batch_id }}",
+              "type": "string"
+            },
+            {
+              "id": "2cb29da7-d052-4d4b-a94e-b6f483bf86ab",
+              "name": "expected_criteria",
+              "value": "={{ $('Batch Selector').item.json.expected_criteria }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "ad7dda53-9c77-4ca9-a098-b415ab9bb513",
+      "name": "Set Fields for Langfuse Payload",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        1280,
+        864
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// --- pull the fields set upstream ---\nconst src = $input.first().json;\nconst requirement_Extractions = src.requirement_Extractions;\nconst GapAnalysis            = src.GapAnalysis;\nconst generatedPRD           = src.generatedPRD;\nconst critiqueReport         = src.critiqueReport;\nconst finalPrd               = src.finalPrd;\nconst StoryBreakdown_Epics   = src.StoryBreakdown_Epics;\nconst storyEvaluatorReport   = src.storyEvaluatorReport;\nconst finalStory             = src.finalStory;\n\n// --- helpers ---\nconst hex = (bytes) =>\n  Array.from({ length: bytes }, () =>\n    Math.floor(Math.random() * 256).toString(16).padStart(2, '0')\n  ).join('');\n\n// nanosecond timestamps must be strings (they exceed JS safe-integer range)\nconst nowMs = Date.now();\nconst nsOf = (ms) => (BigInt(Math.round(ms)) * 1000000n).toString();\n\nconst asStr = (v) =>\n  v == null ? '' : (typeof v === 'string' ? v : JSON.stringify(v));\n\nconst traceId    = hex(16); // 32 hex chars\nconst rootSpanId = hex(8);  //  16 hex chars\n\n// treat the run as ~1s long so start < end\nconst startMs = nowMs - 1000;\nconst endMs   = nowMs;\n\n// one child span per stage, each carrying its input/output\nconst stages = [\n  { name: 'requirement-extraction', output: requirement_Extractions },\n  { name: 'gap-analysis',           output: GapAnalysis },\n  { name: 'prd-generation',         output: generatedPRD },\n  { name: 'critique',               output: critiqueReport },\n  { name: 'final-prd',              output: finalPrd },\n  { name: 'story-breakdown',        output: StoryBreakdown_Epics },\n  { name: 'story-evaluation',       output: storyEvaluatorReport },\n  { name: 'final-story',            output: finalStory },\n];\n\nconst n = stages.length;\nconst stepMs = (endMs - startMs) / n;\n\nconst attr = (key, value) => ({ key, value: { stringValue: asStr(value) } });\n\nconst childSpans = stages.map((s, i) => {\n  const sStart = startMs + i * stepMs;\n  const sEnd   = startMs + (i + 1) * stepMs;\n  return {\n    traceId,\n    spanId: hex(8),\n    parentSpanId: rootSpanId,\n    name: s.name,\n    kind: 1, // SPAN_KIND_INTERNAL\n    startTimeUnixNano: nsOf(sStart),\n    endTimeUnixNano: nsOf(sEnd),\n    attributes: [\n      // Langfuse-native observation IO mapping\n      attr('langfuse.observation.input', ''),\n      attr('langfuse.observation.output', s.output),\n    ],\n  };\n});\n\nconst rootSpan = {\n  traceId,\n  spanId: rootSpanId,\n  name: 'prd-genie',\n  kind: 1,\n  startTimeUnixNano: nsOf(startMs),\n  endTimeUnixNano: nsOf(endMs),\n  attributes: [\n    // Langfuse trace-level IO + name\n    attr('langfuse.trace.name', 'PRD Genie'),\n    attr('langfuse.trace.input', requirement_Extractions),\n    attr('langfuse.trace.output', finalStory ?? finalPrd),\n    attr('langfuse.trace.metadata.batch_id', src.batch_id),\n    attr('langfuse.trace.metadata.expected_criteria', src.expected_criteria)\n  ],\n};\n\nconst payload = {\n  resourceSpans: [\n    {\n      resource: {\n        attributes: [attr('service.name', 'PRD Genie')],\n      },\n      scopeSpans: [\n        {\n          scope: { name: 'prd-genie' },\n          spans: [rootSpan, ...childSpans],\n        },\n      ],\n    },\n  ],\n};\n\nreturn [{ json: payload }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1504,
+        864
+      ],
+      "id": "d58a505f-63be-4c42-960b-4b9c863eeed3",
+      "name": "Code_Node_For_LangFuse"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "7102ff76-0394-4116-a3e6-af800e80ca0e",
+              "name": "filename",
+              "value": "",
+              "type": "string"
+            },
+            {
+              "id": "07a434c3-c703-4b26-86c9-09386738b27c",
+              "name": "batch_id",
+              "value": "R1",
+              "type": "string"
+            },
+            {
+              "id": "60d9959b-a5a2-4a1a-a979-59fe5935d5f6",
+              "name": "expected_criteria",
+              "value": "={\n  \"R1\": \"Must extract all real requirements from all 10 sources (5 transcripts, product brief, 4 stakeholder interviews) with no fabricated requirements, personas, or dates. Must correctly identify and preserve both the refresh-rate conflict (5-second vs 15-minute) as contested, not silently resolved in either direction. Must surface the SPA-vs-server-rendered stakeholder tension (Raj vs Lisa) as a dependency or open question. Must flag churn prediction as ambiguous (data/accuracy unspecified), not fabricate a firm requirement. Must correctly attribute the two distinct people named Tom (VP Product vs VP Sales) without conflation. Must capture the CSV-export XLSX nuance (implementation detail vs user-facing label) if present in source. Personas must be drawn only from the Product Brief's named target users (Business Analysts, Team Leads, Executives), not internal meeting attendees. Story Breakdown must produce persona-separated stories with no fabricated 'so that' justifications.\"\n}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        -624,
+        656
+      ],
+      "id": "b3fef8bc-7ea6-4cba-8bfa-30fc1cb764b5",
+      "name": "Batch Selector"
+    },
+    {
+      "parameters": {
+        "content": "## Manual Trigger\n1. Workflow executes on the click of the button, \n2. Batch Selector set the test cariteria for the 12 Baselines test cases.",
+        "width": 304,
+        "color": 3
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -736,
+        480
+      ],
+      "typeVersion": 1,
+      "id": "978dfa55-01e3-4ac3-9c37-fae70e220210",
+      "name": "Sticky Note7"
+    },
+    {
+      "parameters": {
+        "jsCode": "const extractions = $('Requirement Aggregator').first().json.extractions; \nconst prd =  $('Set finalPrd').first().json.finalPrd\n\n// Sources with zero stated requirements — anything citing one of these\n// as a source for a requirement is fabricated, by definition.\nconst emptySources = new Map(\n  extractions\n    .filter(e => (e.stated_requirements || []).length === 0)\n    .map(e => [e.source_id, e])\n);\n\nconst removedFrs = [];\nconst cleanFrs = (prd.functional_requirements || []).filter(fr => {\n  if (emptySources.has(fr.source)) { removedFrs.push(fr); return false; }\n  return true;\n});\n\nconst removedNfrs = [];\nconst cleanNfrs = (prd.non_functional_requirements || []).filter(nfr => {\n  if (emptySources.has(nfr.source)) { removedNfrs.push(nfr); return false; }\n  return true;\n});\n\n// Make sure whatever was removed is still represented as an open question,\n// pulling directly from that source's own ambiguous_items/missing_info.\nconst existingQuestions = new Set(prd.open_questions || []);\nconst newQuestions = [];\n[...removedFrs, ...removedNfrs].forEach(item => {\n  const source = emptySources.get(item.source);\n  [...(source.ambiguous_items || []), ...(source.missing_info || [])].forEach(q => {\n    if (!existingQuestions.has(q)) { existingQuestions.add(q); newQuestions.push(q); }\n  });\n});\n\nconst correctedPrd = {\n  ...prd,\n  functional_requirements: cleanFrs,\n  non_functional_requirements: cleanNfrs,\n  open_questions: [...(prd.open_questions || []), ...newQuestions]\n};\n\nreturn [{\n  json: {\n    finalPrd: correctedPrd,\n    validation: {\n      removedIds: [...removedFrs, ...removedNfrs].map(i => i.id),\n      wasCorrected: removedFrs.length > 0 || removedNfrs.length > 0\n    }\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        3120,
+        336
+      ],
+      "id": "b9eb47ae-01dd-4b20-9510-9401444e6635",
+      "name": "Validate & Correct Grounding"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "81a00081-9006-405c-827e-115b76c179bc",
+              "leftValue": "={{ $json.extractions.every(e => (e.stated_requirements || []).length === 0 && (e.ambiguous_items || []).length === 0 && (e.missing_info || []).length === 0 ) }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        128,
+        528
+      ],
+      "id": "e33d5ba0-d751-41e1-b4b6-9382b866d090",
+      "name": "Check If Empty Requirement"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "1bc0c703-6cd0-497d-aae3-7228322c0e82",
+              "name": "finalPrd",
+              "value": "No extractable requirements, ambiguous items, or missing information were found in the provided source material. No PRD or Story Breakdown was generated.",
+              "type": "string"
+            },
+            {
+              "id": "a275c28f-8830-43d7-9023-c970dde7d9be",
+              "name": "=requirement_Extractions",
+              "value": "={{JSON.stringify($('Requirement Aggregator').item.json.extractions) }}",
+              "type": "string"
+            },
+            {
+              "id": "b96dc4b1-e94a-4deb-aa3f-6add991c89e9",
+              "name": "batch_id",
+              "value": "={{ $('Batch Selector').item.json.batch_id }}",
+              "type": "string"
+            },
+            {
+              "id": "a8e6fe07-1a81-4de6-8a60-68eb830aea24",
+              "name": "expected_criteria",
+              "value": "={{ $('Batch Selector').item.json.expected_criteria }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        320,
+        512
+      ],
+      "id": "45d41e4b-a035-4f53-94ae-7892c83e9582",
+      "name": "Set Terminal for Empty Requirement"
+    },
+    {
+      "parameters": {
+        "content": "## Check Empty Requirement\nIf there are no extractable requirement shortcircuit the workflow to exist without generating PRD ",
+        "width": 336,
+        "color": 3
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        96,
+        688
+      ],
+      "typeVersion": 1,
+      "id": "3b3c613f-fa27-432e-8c18-4b2efe1aa12b",
+      "name": "Sticky Note8"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "ddca2931-1efe-473e-89c2-62e8e369fb58",
+              "name": "requirement_Extractions",
+              "value": "={{ JSON.stringify($('Requirement Aggregator').item.json.extractions) }}",
+              "type": "array"
+            },
+            {
+              "id": "b78a6e05-7376-4900-858f-116000660155",
+              "name": "GapAnalysis",
+              "value": "={{ JSON.stringify($('Set Gap Analysis').item.json.GapAnalysis) }}",
+              "type": "object"
+            },
+            {
+              "id": "16c8b00d-d530-477a-bd3b-6e4ff8c16806",
+              "name": "generatedPRD",
+              "value": "={{ JSON.stringify($('Set generatedPRD').item.json.generatedPRD) }}",
+              "type": "object"
+            },
+            {
+              "id": "e2a48f90-3688-4c73-b81a-0e0c172f207b",
+              "name": "critiqueReport",
+              "value": "={{ JSON.stringify($('Set Critique Report').item.json.critiqueReport) }}",
+              "type": "object"
+            },
+            {
+              "id": "3fd801db-def2-4eab-a95e-9620f91847f6",
+              "name": "finalPrd",
+              "value": "={{JSON.stringify($('Set finalPrd').item.json.finalPrd) }}",
+              "type": "object"
+            },
+            {
+              "id": "f232d457-baf8-4df6-ac24-3454436deadf",
+              "name": "StoryBreakdown_Epics",
+              "value": "={{ JSON.stringify($('Story Breakdown Agent').item.json.epics) }}",
+              "type": "array"
+            },
+            {
+              "id": "393af4fc-3203-497e-b602-30d979b1113d",
+              "name": "storyEvaluatorReport",
+              "value": "={{ JSON.stringify($('Stroy Evaluator').item.json.validation) }}",
+              "type": "object"
+            },
+            {
+              "id": "c5ab6d9c-67ff-48f5-96a3-a4028b77a457",
+              "name": "finalStory",
+              "value": "={{ JSON.stringify($('Story Breakdown Agent').item.json.epics) }}",
+              "type": "object"
+            },
+            {
+              "id": "3c841552-17e7-45ba-ab3a-c145f482a949",
+              "name": "=batch_id",
+              "value": "={{ $('Batch Selector').item.json.batch_id }}",
+              "type": "string"
+            },
+            {
+              "id": "2cb29da7-d052-4d4b-a94e-b6f483bf86ab",
+              "name": "expected_criteria",
+              "value": "={{ $('Batch Selector').item.json.expected_criteria }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "bd983b5f-22d2-4cf5-a308-e0c5d1ce6648",
+      "name": "Set Fields for Langfuse if true",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        3056,
+        832
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combineBy": "combineByPosition",
+        "numberInputs": 4,
+        "options": {}
+      },
+      "id": "d872f1b8-377f-4058-ad67-45db2e007fbd",
+      "name": "Merge Input for Resolver",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        2448,
+        304
+      ]
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Batch Selector",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Search files and folders": {
+      "main": [
+        [
+          {
+            "node": "Download file",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Download file": {
+      "main": [
+        [
+          {
+            "node": "Extract from File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract from File": {
+      "main": [
+        [
+          {
+            "node": "Requirement Extractor Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Requirement Extractor Agent": {
+      "main": [
+        [
+          {
+            "node": "Requirement Aggregator",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Requirement Aggregator": {
+      "main": [
+        [
+          {
+            "node": "Check If Empty Requirement",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Gap Analyzer": {
+      "main": [
+        [
+          {
+            "node": "Set Gap Analysis",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Gap Analysis": {
+      "main": [
+        [
+          {
+            "node": "Merge Inputs for PRD Generation",
+            "type": "main",
+            "index": 2
+          },
+          {
+            "node": "Merge Inputs for Critique",
+            "type": "main",
+            "index": 2
+          },
+          {
+            "node": "Merge Input for Resolver",
+            "type": "main",
+            "index": 3
+          }
+        ]
+      ]
+    },
+    "Prd Template": {
+      "main": [
+        [
+          {
+            "node": "Merge Inputs for PRD Generation",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge Inputs for PRD Generation": {
+      "main": [
+        [
+          {
+            "node": "PRD Generator",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge Inputs for Critique": {
+      "main": [
+        [
+          {
+            "node": "Critique Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set generatedPRD": {
+      "main": [
+        [
+          {
+            "node": "Merge Inputs for Critique",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Merge Input for Resolver",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Set Critique Report": {
+      "main": [
+        [
+          {
+            "node": "Merge Input for Resolver",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "PRD Generator": {
+      "main": [
+        [
+          {
+            "node": "Set generatedPRD",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Critique Agent": {
+      "main": [
+        [
+          {
+            "node": "Set Critique Report",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Resolver": {
+      "main": [
+        [
+          {
+            "node": "Set finalPrd",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set finalPrd": {
+      "main": [
+        [
+          {
+            "node": "Validate & Correct Grounding",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Story Breakdown Agent": {
+      "main": [
+        [
+          {
+            "node": "Stroy Evaluator",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Stroy Evaluator": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Set Fields for Langfuse if true",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "User Story Finalizer",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "User Story Finalizer": {
+      "main": [
+        [
+          {
+            "node": "Set Fields for Langfuse Payload",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Fields for Langfuse Payload": {
+      "main": [
+        [
+          {
+            "node": "Code_Node_For_LangFuse",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code_Node_For_LangFuse": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request to Langfuse",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Batch Selector": {
+      "main": [
+        [
+          {
+            "node": "Search files and folders",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Validate & Correct Grounding": {
+      "main": [
+        [
+          {
+            "node": "Story Breakdown Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check If Empty Requirement": {
+      "main": [
+        [
+          {
+            "node": "Set Terminal for Empty Requirement",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Merge Inputs for PRD Generation",
+            "type": "main",
+            "index": 1
+          },
+          {
+            "node": "Gap Analyzer",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Merge Inputs for Critique",
+            "type": "main",
+            "index": 1
+          },
+          {
+            "node": "Merge Input for Resolver",
+            "type": "main",
+            "index": 2
+          },
+          {
+            "node": "Prd Template",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Terminal for Empty Requirement": {
+      "main": [
+        [
+          {
+            "node": "Code_Node_For_LangFuse",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Fields for Langfuse if true": {
+      "main": [
+        [
+          {
+            "node": "Code_Node_For_LangFuse",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge Input for Resolver": {
+      "main": [
+        [
+          {
+            "node": "Resolver",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "3413240b-5bdb-42f3-b509-050ac450b915",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "223b7faad1cb1449933e882d54347d4a5d06e7b4cac2fcb183b6d7615eecbc03"
+  },
+  "nodeGroups": [],
+  "id": "1qGonvMPc9hGREIT",
+  "tags": []
+}
