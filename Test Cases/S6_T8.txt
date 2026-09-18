@@ -1,0 +1,7 @@
+Baseline Test Input - S6
+========================
+Isolated: persona-to-story mapping needs to be unambiguous, with no other
+personas or content bleeding in from another test case.
+
+=== TRANSCRIPT T8: User Access Requirements (Persona-Based) ===
+"Admins need bulk user management. End users need a simplified view. Auditors need read-only access with full history."

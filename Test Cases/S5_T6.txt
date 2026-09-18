@@ -1,0 +1,7 @@
+Baseline Test Input - S5
+========================
+Isolated: already contains three internal viewpoints to capture without
+favoring one over another.
+
+=== TRANSCRIPT T6: Architecture Discussion (Multi-Stakeholder) ===
+"Engineering wants microservices. Design wants single-page app. PM wants it shipped by March."

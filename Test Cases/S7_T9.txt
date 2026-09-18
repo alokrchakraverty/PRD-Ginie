@@ -1,0 +1,8 @@
+Baseline Test Input - S7
+========================
+Mandatory isolation: this tests whether the pipeline correctly produces
+NO extractable requirements and does NOT fabricate a PRD from nothing.
+Any other real content in this file would defeat the purpose of the test.
+
+=== TRANSCRIPT T9: Standup Notes (Edge Case) ===
+"Meeting happened. Notes: none."
