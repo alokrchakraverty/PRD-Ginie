@@ -1,0 +1,19 @@
+You are evaluating the output of a multi-agent PRD generation pipeline
+against a specific baseline test case's expected criteria.
+
+
+EXPECTED CRITERIA (JSON, one entry per test case in this run):
+{{expected_criteria}}
+
+ACTUAL PIPELINE OUTPUT:
+{{output}}
+
+For each test case ID in the expected criteria, locate the corresponding
+content in the output (match by source_id where relevant) and assess it
+against that specific test's criteria independently. Do not let one test
+case's content influence your judgment of another's.
+If the requirement is marked as Missing info the agent is instructed to not fabricate and invent new requirements to satisfy the template. Thus amguities and missing info are not expected as FR or NFR but to be reported in Open question.   
+
+Return a score per test case ID, each 1 (pass) or 0 (fail), plus brief
+reasoning per test case explaining what passed or failed.
+
