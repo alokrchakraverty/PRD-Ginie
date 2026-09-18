@@ -1,0 +1,8 @@
+Baseline Test Input - S1
+========================
+This file is used in isolation so that T11 and T12 (which evaluate the
+PRD and Story Breakdown generated FROM T1) can be checked cleanly against
+only T1's content.
+
+=== TRANSCRIPT T1: Reporting Feature (Detailed) ===
+"The user should be able to filter reports by date range, category, and status. Results must load in under 2 seconds. PM: Sarah. Deadline: Q3."

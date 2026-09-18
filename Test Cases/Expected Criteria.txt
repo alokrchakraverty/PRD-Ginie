@@ -1,0 +1,60 @@
+filename: S1_T1.txt
+batch_id: S1
+expected_criteria:
+{
+  "T1": "Must extract: filter by date/category/status, 2-second load time, PM Sarah, Q3 deadline. Must NOT add requirements not in transcript.",
+  "T11": "PRD generated from this run must follow template structure, include all sections, and only contain requirements from T1.",
+  "T12": "Story Breakdown generated from this run's PRD must produce Epics and User Stories in 'As a [user]' format, including priority suggestions."
+}
+
+filename: S2_T2_T7.txt
+batch_id: S2
+expected_criteria:
+{
+  "T2": "Must flag as ambiguous. Must list missing info (what metrics, what format, what users). Must NOT invent specific requirements.",
+  "T7": "Must extract exact numbers (10K users, 200ms p95, Salesforce v52). Must classify as NFRs. Must NOT round or modify the numbers."
+}
+
+filename: S3_T3_T4.txt
+batch_id: S3
+expected_criteria:
+{
+  "T3": "Must identify the contradiction (frequent refresh vs minimize calls). Must flag for stakeholder resolution.",
+  "T4": "Must extract acceptance criteria verbatim. Must generate User Stories with these as criteria. Must NOT add extra criteria."
+}
+
+filename: S4_T5_T10.txt
+batch_id: S4
+expected_criteria:
+{
+  "T5": "Must flag as insufficient. Must list what is missing (what dashboard, what real-time, what budget). Must NOT fill in gaps with assumptions.",
+  "T10": "Must extract the feature (SSO). Must flag dependency on auth service / Team Alpha. Must flag unknown ETA as a risk."
+}
+
+filename: S5_T6.txt
+batch_id: S5
+expected_criteria:
+{
+  "T6": "Must capture all three viewpoints. Must identify tensions. Must NOT favor one over others."
+}
+
+filename: S6_T8.txt
+batch_id: S6
+expected_criteria:
+{
+  "T8": "Must identify 3 personas (Admin, End User, Auditor). Must create separate stories for each. Must NOT merge into generic user stories."
+}
+
+filename: S7_T9.txt
+batch_id: S7
+expected_criteria:
+{
+  "T9": "Must flag as no requirements extractable. Must NOT generate a PRD from nothing."
+}
+
+filename: ( blank, or set to "" — Folder scoping handles the file set for this run)
+batch_id: R1
+expected_criteria:
+{
+  "R1": "Must extract all real requirements from all 10 sources (5 transcripts, product brief, 4 stakeholder interviews) with no fabricated requirements, personas, or dates. Must correctly identify and preserve both the refresh-rate conflict (5-second vs 15-minute) as contested, not silently resolved in either direction. Must surface the SPA-vs-server-rendered stakeholder tension (Raj vs Lisa) as a dependency or open question. Must flag churn prediction as ambiguous (data/accuracy unspecified), not fabricate a firm requirement. Must correctly attribute the two distinct people named Tom (VP Product vs VP Sales) without conflation. Must capture the CSV-export XLSX nuance (implementation detail vs user-facing label) if present in source. Personas must be drawn only from the Product Brief's named target users (Business Analysts, Team Leads, Executives), not internal meeting attendees. Story Breakdown must produce persona-separated stories with no fabricated 'so that' justifications."
+}

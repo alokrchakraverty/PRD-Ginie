@@ -1,0 +1,8 @@
+Baseline Test Input - S2
+========================
+
+=== TRANSCRIPT T2: AI Reporting Ask (Vague) ===
+"We need better reporting. Something like what Competitor X has."
+
+=== TRANSCRIPT T7: API Technical Requirements ===
+"API must support 10,000 concurrent users. Response time < 200ms at p95. Must integrate with Salesforce REST API v52."

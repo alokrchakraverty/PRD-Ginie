@@ -1,0 +1,8 @@
+Baseline Test Input - S3
+========================
+
+=== TRANSCRIPT T3: Dashboard Refresh (Contradictory) ===
+"The dashboard should auto-refresh every 5 seconds." Later: "Performance is critical, minimize API calls."
+
+=== TRANSCRIPT T4: Export Feature (Detailed with Acceptance Criteria) ===
+"Users need to export reports as PDF and CSV. PDF must include company logo. CSV must preserve formulas."

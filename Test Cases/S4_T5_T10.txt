@@ -1,0 +1,8 @@
+Baseline Test Input - S4
+========================
+
+=== TRANSCRIPT T5: Dashboard Discussion (Incomplete Notes) ===
+"Discussed dashboard... John mentioned something about real-time... budget TBD..."
+
+=== TRANSCRIPT T10: SSO Login Feature (Dependency) ===
+"SSO login requires the new auth service which is being built by Team Alpha. ETA unknown."
