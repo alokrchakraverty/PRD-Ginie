@@ -1,5 +1,5 @@
 # PRD-Ginie : AI-Powered Product Documentation Assistant
-Project files and Documentation for Project - PRD Genie — AI-Powered Product Documentation Assistant 
+Project files and Documentation for Project - PRD Genie — AI-Powered Product Documentation Assistant.
 
 How to use this guide -
 This document explains the folder structure and list of documents submitted for the completion of Capstone Project Submission of project - "PRD Genie: AI-Powered Product Documentation Assistant"
